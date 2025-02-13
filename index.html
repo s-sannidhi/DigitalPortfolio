@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Srujan Sannidhi - Portfolio</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- AOS Library for scroll animations -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        dark: '#0a0a0a',
+                        darker: '#050505',
+                        accent: '#64ffda'
+                    },
+                    fontFamily: {
+                        space: ['Space Grotesk', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body { 
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            filter: none;
+        }
+
+        .content {
+            position: relative;
+            z-index: 1;
+        }
+
+        section {
+            min-height: 100vh;
+            padding: 3rem 0;
+            margin: 0;
+            position: relative;
+            background: transparent;
+        }
+
+        .nav-dot {
+            position: fixed;
+            right: 2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            z-index: 50;
+        }
+
+        .nav-dot a {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(100, 255, 218, 0.2);
+            transition: all 0.3s;
+        }
+
+        .nav-dot a:hover, .nav-dot a.active {
+            background: #64ffda;
+            transform: scale(1.2);
+        }
+
+        .typed-cursor {
+            opacity: 1;
+            animation: typedjsBlink 0.7s infinite;
+            font-size: 2rem;
+            position: relative;
+            top: -2px;
+        }
+
+        @keyframes typedjsBlink {
+            50% { opacity: 0.0; }
+        }
+
+        /* Update the typing animation container styles */
+        #typed {
+            display: inline-block;
+            text-align: center;
+            min-height: 40px;
+            position: relative;
+            padding: 4px 0;
+        }
+
+        /* Add gradient overlay to sections */
+        section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 100px;
+            background: linear-gradient(to bottom, #0a0a0a 0%, transparent 100%);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Enhance card hover effects */
+        .group:hover .border-accent20 {
+            box-shadow: 0 0 20px rgba(100, 255, 218, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .border-accent20 {
+            transition: all 0.3s ease;
+        }
+
+        /* Enhance section headings */
+        h2.text-3xl {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 2rem;
+        }
+
+        /* Enhance navigation */
+        .nav-links a {
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background-color: #64ffda;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Active nav link style */
+        .nav-active {
+            background-color: rgba(100, 255, 218, 0.1);
+            color: #64ffda;
+        }
+
+        /* Enhance particles */
+        canvas {
+            opacity: 0.8 !important;
+        }
+
+        /* Enhance image hover */
+        .group:hover img {
+            transform: scale(1.02);
+            box-shadow: 0 0 30px rgba(100, 255, 218, 0.2);
+        }
+
+        /* Add subtle animation to social icons */
+        .social-links a:hover i {
+            transform: translateY(-2px);
+        }
+
+        .social-links a i {
+            transition: transform 0.3s ease;
+        }
+
+        /* Update navigation styles */
+        nav a {
+            position: relative;
+            opacity: 0.7;
+        }
+
+        nav a:hover {
+            opacity: 1;
+        }
+
+        nav a::before {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 100%;
+            background-color: rgba(100, 255, 218, 0.1);
+            left: 0;
+            top: 0;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover::before {
+            width: 100%;
+        }
+    </style>
+</head>
+<body class="bg-dark text-gray-300">
+    <div id="particles-js"></div>
+    
+    <nav class="fixed top-0 w-full bg-dark/80 backdrop-blur-md z-50 transition-all duration-300">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="text-2xl font-bold text-accent hover:text-white transition-colors duration-300 cursor-pointer">SS</div>
+                <ul class="hidden md:flex items-center gap-6">
+                    <li>
+                        <a href="#home" class="group text-sm transition-all duration-300 py-2 px-3">
+                            <span class="text-accent">//</span> home
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#about" class="group text-sm transition-all duration-300 py-2 px-3">
+                            <span class="text-accent">//</span> about
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#education" class="group text-sm transition-all duration-300 py-2 px-3">
+                            <span class="text-accent">//</span> edu
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#experience" class="group text-sm transition-all duration-300 py-2 px-3">
+                            <span class="text-accent">//</span> exp
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#achievements" class="group text-sm transition-all duration-300 py-2 px-3">
+                            <span class="text-accent">//</span> achieve
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#certifications" class="group text-sm transition-all duration-300 py-2 px-3">
+                            <span class="text-accent">//</span> certs
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#projects" class="group text-sm transition-all duration-300 py-2 px-3">
+                            <span class="text-accent">//</span> projects
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#contact" class="group text-sm transition-all duration-300 py-2 px-3">
+                            <span class="text-accent">//</span> contact
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Side navigation dots -->
+    <div class="nav-dot">
+        <a href="#home" data-section="home"></a>
+        <a href="#about" data-section="about"></a>
+        <a href="#education" data-section="education"></a>
+        <a href="#experience" data-section="experience"></a>
+        <a href="#achievements" data-section="achievements"></a>
+        <a href="#certifications" data-section="certifications"></a>
+        <a href="#projects" data-section="projects"></a>
+        <a href="#contact" data-section="contact"></a>
+    </div>
+
+    <div class="content">
+        <!-- Home Section -->
+        <section id="home">
+            <div class="content-wrapper min-h-screen flex items-center justify-center" style="margin-top: -5rem;">
+                <div class="text-center" data-aos="fade-up">
+                    <p class="text-accent mb-4 font-mono">Hi, my name is</p>
+                    <h1 class="text-5xl md:text-7xl font-bold text-white mb-4">Srujan Sannidhi</h1>
+                    <div class="text-2xl md:text-3xl text-gray-400 mb-8 flex items-center justify-center gap-1" id="typed"></div>
+                    <div class="flex justify-center space-x-6 mt-8">
+                        <a href="https://github.com/s-sannidhi" class="text-2xl hover:text-accent transition-colors duration-300" title="GitHub">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="https://instagram.com/srujan.sunnyd" class="text-2xl hover:text-accent transition-colors duration-300" title="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <div class="relative group">
+                            <a href="#" class="text-2xl hover:text-accent transition-colors duration-300" title="Discord">
+                                <i class="fab fa-discord"></i>
+                            </a>
+                            <span class="absolute -bottom-10 left-1/2 transform -translate-x-1/2 px-3 py-1 bg-accent/10 backdrop-blur-sm text-accent text-sm rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
+                                light_toaster
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about">
+            <div class="content-wrapper py-20">
+                <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <h2 class="text-3xl font-bold text-white mb-8" data-aos="fade-up">
+                        <span class="text-accent">//</span> about me
+                    </h2>
+                    <div class="grid md:grid-cols-2 gap-8 items-center">
+                        <div class="space-y-4 order-2 md:order-1" data-aos="fade-right">
+                            <p class="text-gray-400">
+                                Hey, I'm Srujan, a passionate tech enthusiast with a deep love for computer science. I thrive on exploring the world of gaming, coding, and all things tech—whether it's building apps, tinkering with hardware, or diving into cybersecurity. I'm constantly seeking new challenges and creative ways to push my skills forward. Welcome to my digital portfolio!
+                            </p>
+                            <div class="space-y-4 mt-8">
+                                <h3 class="text-xl font-semibold text-white">.skills</h3>
+                                <div class="grid grid-cols-2 md:grid-cols-3 gap-2">
+                                    <div class="border border-accent/20 p-3 rounded hover:border-accent transition-colors duration-300">
+                                        <span>Java</span>
+                                    </div>
+                                    <div class="border border-accent/20 p-3 rounded hover:border-accent transition-colors duration-300">
+                                        <span>Python</span>
+                                    </div>
+                                    <div class="border border-accent/20 p-3 rounded hover:border-accent transition-colors duration-300">
+                                        <span>HTML/CSS</span>
+                                    </div>
+                                    <div class="border border-accent/20 p-3 rounded hover:border-accent transition-colors duration-300">
+                                        <span>Unity</span>
+                                    </div>
+                                    <div class="border border-accent/20 p-3 rounded hover:border-accent transition-colors duration-300">
+                                        <span>C#</span>
+                                    </div>
+                                    <div class="border border-accent/20 p-3 rounded hover:border-accent transition-colors duration-300">
+                                        <span>Swift</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="order-1 md:order-2" data-aos="fade-left">
+                            <div class="relative group">
+                                <div class="absolute -inset-0.5 bg-accent opacity-20 rounded-lg blur transition duration-300 group-hover:opacity-40"></div>
+                                <div class="relative">
+                                    <img 
+                                        src="pfp.jpg" 
+                                        alt="Srujan Sannidhi" 
+                                        class="rounded-lg w-full max-w-md mx-auto grayscale hover:grayscale-0 transition-all duration-300"
+                                    >
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Education Section -->
+        <section id="education">
+            <div class="content-wrapper py-20">
+                <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <h2 class="text-3xl font-bold text-white mb-12" data-aos="fade-up">
+                        <span class="text-accent">//</span> education
+                    </h2>
+                    <div class="space-y-8">
+                        <div class="group" data-aos="fade-up">
+                            <div class="border border-accent/20 rounded-lg p-6 hover:border-accent transition-all duration-300">
+                                <div class="flex justify-between items-start mb-2">
+                                    <h3 class="text-xl font-semibold text-white">The University of Texas at Austin</h3>
+                                    <span class="text-accent">Incoming Fall 2025</span>
+                                </div>
+                                <p class="text-gray-400 mb-2">Bachelor of Science in Computer Science</p>
+                                <div class="flex flex-wrap gap-2 mt-4">
+                                    <span class="px-3 py-1 text-sm bg-accent/10 text-accent rounded-full">Computer Science Major</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="group" data-aos="fade-up" data-aos-delay="100">
+                            <div class="border border-accent/20 rounded-lg p-6 hover:border-accent transition-all duration-300">
+                                <div class="flex justify-between items-start mb-2">
+                                    <h3 class="text-xl font-semibold text-white">Allen High School</h3>
+                                    <span class="text-accent">2021 - 2025</span>
+                                </div>
+                                <p class="text-gray-400 mb-2">High School Diploma</p>
+                                <p class="text-gray-400">Allen, Texas</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience Section -->
+        <section id="experience">
+            <div class="content-wrapper py-20">
+                <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <h2 class="text-3xl font-bold text-white mb-12" data-aos="fade-up">
+                        <span class="text-accent">//</span> experience
+                    </h2>
+                    <div class="space-y-8">
+                        <div class="group" data-aos="fade-up">
+                            <div class="border border-accent/20 rounded-lg p-6 hover:border-accent transition-all duration-300">
+                                <div class="flex justify-between items-start mb-2">
+                                    <h3 class="text-xl font-semibold text-white">STEM Instructor</h3>
+                                    <span class="text-accent">Present</span>
+                                </div>
+                                <p class="text-gray-400 mb-4">iCode McKinney</p>
+                                <ul class="text-gray-400 space-y-2 list-disc list-inside">
+                                    <li>Teaching programming and STEM concepts to students</li>
+                                    <li>Developing and implementing engaging curriculum</li>
+                                    <li>Mentoring students in various programming languages and technologies</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="group" data-aos="fade-up" data-aos-delay="100">
+                            <div class="border border-accent/20 rounded-lg p-6 hover:border-accent transition-all duration-300">
+                                <div class="flex justify-between items-start mb-2">
+                                    <h3 class="text-xl font-semibold text-white">Software Developer</h3>
+                                    <span class="text-accent">2022 - 2024</span>
+                                </div>
+                                <p class="text-gray-400 mb-4">Toys For Texans <span class="text-accent text-sm">(Non-Profit)</span></p>
+                                <ul class="text-gray-400 space-y-2 list-disc list-inside">
+                                    <li>Developed software solutions for non-profit operations</li>
+                                    <li>Contributed to improving organizational efficiency through technology</li>
+                                    <li>Collaborated with team members to implement technical solutions</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="group" data-aos="fade-up" data-aos-delay="200">
+                            <div class="border border-accent/20 rounded-lg p-6 hover:border-accent transition-all duration-300">
+                                <div class="flex justify-between items-start mb-2">
+                                    <h3 class="text-xl font-semibold text-white">Facebook Ad Manager</h3>
+                                    <span class="text-accent">2022 - 2023</span>
+                                </div>
+                                <p class="text-gray-400 mb-4">Lightbulb Tutoring <span class="text-accent text-sm">(Non-Profit)</span></p>
+                                <ul class="text-gray-400 space-y-2 list-disc list-inside">
+                                    <li>Managed and optimized Facebook advertising campaigns</li>
+                                    <li>Developed strategic social media marketing initiatives</li>
+                                    <li>Analyzed campaign performance and engagement metrics</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Achievements Section -->
+        <section id="achievements">
+            <div class="content-wrapper py-20">
+                <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <h2 class="text-3xl font-bold text-white mb-12" data-aos="fade-up">
+                        <span class="text-accent">//</span> achievements
+                    </h2>
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div class="group" data-aos="fade-up">
+                            <div class="border border-accent/20 rounded-lg p-6 hover:border-accent transition-all duration-300">
+                                <div class="flex items-center gap-2 mb-3">
+                                    <i class="fas fa-rocket text-accent text-xl"></i>
+                                    <h3 class="text-xl font-semibold text-white">NASA Hunch Finalist</h3>
+                                </div>
+                                <p class="text-gray-400">2023-2024 Finalist in the NASA HUNCH (High School Students United with NASA to Create Hardware) program</p>
+                            </div>
+                        </div>
+
+                        <div class="group" data-aos="fade-up" data-aos-delay="100">
+                            <div class="border border-accent/20 rounded-lg p-6 hover:border-accent transition-all duration-300">
+                                <div class="flex items-center gap-2 mb-3">
+                                    <i class="fas fa-shield-alt text-accent text-xl"></i>
+                                    <h3 class="text-xl font-semibold text-white">CyberPatriot XVI Finalist</h3>
+                                </div>
+                                <p class="text-gray-400">Advanced to Finals in the CyberPatriot XVI National Youth Cyber Defense Competition</p>
+                            </div>
+                        </div>
+
+                        <div class="group" data-aos="fade-up" data-aos-delay="200">
+                            <div class="border border-accent/20 rounded-lg p-6 hover:border-accent transition-all duration-300">
+                                <div class="flex items-center gap-2 mb-3">
+                                    <i class="fas fa-shield-alt text-accent text-xl"></i>
+                                    <h3 class="text-xl font-semibold text-white">CyberPatriot XVII Semi-Finalist</h3>
+                                </div>
+                                <p class="text-gray-400">Advanced to Semi-Finals in the CyberPatriot XVII National Youth Cyber Defense Competition</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Certifications Section -->
+        <section id="certifications">
+            <div class="content-wrapper py-20">
+                <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <h2 class="text-3xl font-bold text-white mb-12" data-aos="fade-up">
+                        <span class="text-accent">//</span> certifications
+                    </h2>
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div class="group" data-aos="fade-up">
+                            <div class="border border-accent/20 rounded-lg p-6 hover:border-accent transition-all duration-300">
+                                <div class="flex items-center gap-2 mb-3">
+                                    <i class="fab fa-microsoft text-accent text-xl"></i>
+                                    <h3 class="text-xl font-semibold text-white">Microsoft Word</h3>
+                                </div>
+                                <p class="text-gray-400">Individual Certification</p>
+                            </div>
+                        </div>
+
+                        <div class="group" data-aos="fade-up" data-aos-delay="100">
+                            <div class="border border-accent/20 rounded-lg p-6 hover:border-accent transition-all duration-300">
+                                <div class="flex items-center gap-2 mb-3">
+                                    <i class="fab fa-google text-accent text-xl"></i>
+                                    <h3 class="text-xl font-semibold text-white">Google Analytics</h3>
+                                </div>
+                                <p class="text-gray-400">Individual Qualification</p>
+                            </div>
+                        </div>
+
+                        <div class="group" data-aos="fade-up" data-aos-delay="200">
+                            <div class="border border-accent/20 rounded-lg p-6 hover:border-accent transition-all duration-300">
+                                <div class="flex items-center gap-2 mb-3">
+                                    <i class="fab fa-html5 text-accent text-xl"></i>
+                                    <h3 class="text-xl font-semibold text-white">HTML</h3>
+                                </div>
+                                <p class="text-gray-400">Individual Certification</p>
+                            </div>
+                        </div>
+
+                        <div class="group" data-aos="fade-up" data-aos-delay="300">
+                            <div class="border border-accent/20 rounded-lg p-6 hover:border-accent transition-all duration-300">
+                                <div class="flex items-center gap-2 mb-3">
+                                    <i class="fab fa-java text-accent text-xl"></i>
+                                    <h3 class="text-xl font-semibold text-white">Java</h3>
+                                </div>
+                                <p class="text-gray-400">Individual Certification</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects">
+            <div class="content-wrapper py-20">
+                <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <h2 class="text-3xl font-bold text-white mb-12" data-aos="fade-up">
+                        <span class="text-accent">//</span> projects
+                    </h2>
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div class="group" data-aos="fade-up">
+                            <div class="border border-accent/20 rounded-lg p-6 hover:border-accent transition-all duration-300">
+                                <h3 class="text-xl font-semibold text-white mb-3">SpendSense</h3>
+                                <p class="text-gray-400 mb-4">A mobile application for personal finance tracking, helping users manage their expenses and monitor spending habits on the go.</p>
+                                <div class="flex space-x-4">
+                                    <a href="https://github.com/s-sannidhi/SpendSense" target="_blank" class="text-accent hover:text-white transition-colors duration-300">
+                                        <i class="fab fa-github mr-2"></i>GitHub →
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="group" data-aos="fade-up" data-aos-delay="100">
+                            <div class="border border-accent/20 rounded-lg p-6 hover:border-accent transition-all duration-300">
+                                <h3 class="text-xl font-semibold text-white mb-3">Convertly</h3>
+                                <p class="text-gray-400 mb-4">A mobile file conversion tool that simplifies the process of converting files between different formats directly from your phone.</p>
+                                <div class="flex space-x-4">
+                                    <a href="https://github.com/s-sannidhi/Convertly" target="_blank" class="text-accent hover:text-white transition-colors duration-300">
+                                        <i class="fab fa-github mr-2"></i>GitHub →
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="group" data-aos="fade-up" data-aos-delay="200">
+                            <div class="border border-accent/20 rounded-lg p-6 hover:border-accent transition-all duration-300">
+                                <h3 class="text-xl font-semibold text-white mb-3">Google But I Made It</h3>
+                                <p class="text-gray-400 mb-4">A custom search engine implementation inspired by Google's functionality, built from scratch to understand search algorithms and web indexing.</p>
+                                <div class="flex space-x-4">
+                                    <a href="https://github.com/s-sannidhi/googlebutimadeit" target="_blank" class="text-accent hover:text-white transition-colors duration-300">
+                                        <i class="fab fa-github mr-2"></i>GitHub →
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="min-h-screen flex flex-col justify-between">
+            <div class="content-wrapper flex-grow flex items-center">
+                <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                    <h2 class="text-3xl font-bold text-white mb-8" data-aos="fade-up">
+                        <span class="text-accent">//</span> contact
+                    </h2>
+                    <p class="text-gray-400 mb-6" data-aos="fade-up">Get in touch:</p>
+                    <a href="mailto:srujan.sannidhi7@gmail.com" class="inline-flex items-center text-accent hover:text-white transition-colors duration-300 text-lg" data-aos="fade-up">
+                        <i class="fas fa-envelope mr-2"></i>
+                        srujan.sannidhi7@gmail.com
+                    </a>
+                    <div class="mt-8">
+                        <a href="./resume.pdf" class="inline-flex items-center border border-accent px-6 py-3 rounded hover:bg-accent hover:text-dark transition-all duration-300">
+                            <i class="fas fa-file-alt mr-2"></i>
+                            View Resume
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <footer class="w-full py-8 border-t border-accent/20">
+                <div class="text-center text-gray-400">
+                    <p>&copy; 2025 Srujan Sannidhi</p>
+                </div>
+            </footer>
+        </section>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 800,
+            offset: 100,
+            once: true
+        });
+
+        // Initialize Typed.js
+        new Typed('#typed', {
+            strings: ['Developer', 'Creator', 'Innovator'],
+            typeSpeed: 50,
+            backSpeed: 30,
+            loop: true,
+            backDelay: 2000
+        });
+
+        // Initialize Particles.js
+        particlesJS('particles-js', {
+            particles: {
+                number: { value: 80, density: { enable: true, value_area: 800 } },
+                color: { value: '#64ffda' },
+                shape: { type: 'circle' },
+                opacity: {
+                    value: 0.5,
+                    random: true,
+                    anim: { enable: true, speed: 1, opacity_min: 0.1, sync: false }
+                },
+                size: {
+                    value: 3,
+                    random: true,
+                    anim: { enable: true, speed: 2, size_min: 0.1, sync: false }
+                },
+                line_linked: {
+                    enable: true,
+                    distance: 150,
+                    color: '#64ffda',
+                    opacity: 0.3,
+                    width: 1.5
+                },
+                move: {
+                    enable: true,
+                    speed: 2,
+                    direction: 'none',
+                    random: true,
+                    straight: false,
+                    out_mode: 'out',
+                    bounce: false,
+                    attract: { enable: true, rotateX: 600, rotateY: 1200 }
+                }
+            },
+            interactivity: {
+                detect_on: 'canvas',
+                events: {
+                    onhover: {
+                        enable: true,
+                        mode: 'grab'
+                    },
+                    onclick: {
+                        enable: true,
+                        mode: 'push'
+                    },
+                    resize: true
+                },
+                modes: {
+                    grab: {
+                        distance: 200,
+                        line_linked: {
+                            opacity: 0.8
+                        }
+                    },
+                    push: {
+                        particles_nb: 4
+                    }
+                }
+            },
+            retina_detect: true
+        });
+
+        // Add scroll spy for navigation dots
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section');
+            const navDots = document.querySelectorAll('.nav-dot a');
+            
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (pageYOffset >= sectionTop - 60) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navDots.forEach(dot => {
+                dot.classList.remove('active');
+                if (dot.getAttribute('data-section') === current) {
+                    dot.classList.add('active');
+                }
+            });
+        });
+
+        // Smooth scroll for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html> 
