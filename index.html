@@ -4,13 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Srujan Sannidhi - Portfolio</title>
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- AOS Library for scroll animations -->
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <script>
         tailwind.config = {
@@ -56,6 +52,14 @@
             margin: 0;
             position: relative;
             background: transparent;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .nav-dot {
@@ -202,6 +206,171 @@
 
         nav a:hover::before {
             width: 100%;
+        }
+
+        /* Section Transition Styles */
+        section {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Reveal Animation for Elements */
+        .reveal {
+            position: relative;
+            transform: translateY(50px);
+            opacity: 0;
+            transition: all 1s ease;
+        }
+
+        .reveal.active {
+            transform: translateY(0px);
+            opacity: 1;
+        }
+
+        /* Interactive Project Cards */
+        .project-card {
+            transform-style: preserve-3d;
+            transform: perspective(1000px);
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .project-card:hover {
+            transform: perspective(1000px) rotateX(10deg) rotateY(10deg) translateZ(20px);
+            box-shadow: 0 25px 50px -12px rgba(100, 255, 218, 0.15);
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 8px;
+            background: radial-gradient(
+                800px circle at var(--mouse-x) var(--mouse-y),
+                rgba(100, 255, 218, 0.1),
+                transparent 40%
+            );
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+
+        .project-card:hover::before {
+            opacity: 1;
+        }
+
+        .project-card .content {
+            transform: translateZ(20px);
+            transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .project-card:hover .content {
+            transform: translateZ(40px);
+        }
+
+        .project-card .tech-stack {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+        }
+
+        .project-card:hover .tech-stack {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .tech-badge {
+            font-size: 0.75rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            background: rgba(100, 255, 218, 0.1);
+            color: #64ffda;
+            transition: all 0.3s ease;
+        }
+
+        .tech-badge:hover {
+            background: rgba(100, 255, 218, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Interactive Card Styles - Applied to all sections */
+        .interactive-card {
+            transform-style: preserve-3d;
+            transform: perspective(1500px);
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            background: rgba(10, 10, 10, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .interactive-card:hover {
+            transform: perspective(1500px) rotateX(5deg) rotateY(5deg) translateZ(10px);
+            box-shadow: 0 15px 30px -12px rgba(100, 255, 218, 0.1);
+        }
+
+        .interactive-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 8px;
+            background: radial-gradient(
+                800px circle at var(--mouse-x) var(--mouse-y),
+                rgba(100, 255, 218, 0.1),
+                transparent 40%
+            );
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+
+        .interactive-card:hover::before {
+            opacity: 1;
+        }
+
+        .interactive-card .content {
+            transform: translateZ(10px);
+            transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            position: relative;
+        }
+
+        .interactive-card:hover .content {
+            transform: translateZ(20px);
+        }
+
+        /* Tech stack styles */
+        .tech-stack {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+        }
+
+        .interactive-card:hover .tech-stack {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .tech-badge {
+            font-size: 0.75rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            background: rgba(100, 255, 218, 0.1);
+            color: #64ffda;
+            transition: all 0.3s ease;
+        }
+
+        .tech-badge:hover {
+            background: rgba(100, 255, 218, 0.2);
+            transform: translateY(-2px);
         }
     </style>
 </head>
@@ -360,26 +529,30 @@
                     </h2>
                     <div class="space-y-8">
                         <div class="group" data-aos="fade-up">
-                            <div class="border border-accent/20 rounded-lg p-6 hover:border-accent transition-all duration-300">
-                                <div class="flex justify-between items-start mb-2">
-                                    <h3 class="text-xl font-semibold text-white">The University of Texas at Austin</h3>
-                                    <span class="text-accent">Incoming Fall 2025</span>
-                                </div>
-                                <p class="text-gray-400 mb-2">Bachelor of Science in Computer Science</p>
-                                <div class="flex flex-wrap gap-2 mt-4">
-                                    <span class="px-3 py-1 text-sm bg-accent/10 text-accent rounded-full">Computer Science Major</span>
+                            <div class="interactive-card border border-accent/20 rounded-lg p-6 relative overflow-hidden">
+                                <div class="content">
+                                    <div class="flex justify-between items-start mb-2">
+                                        <h3 class="text-xl font-semibold text-white">The University of Texas at Austin</h3>
+                                        <span class="text-accent">Incoming Fall 2025</span>
+                                    </div>
+                                    <p class="text-gray-400 mb-2">Bachelor of Science in Computer Science</p>
+                                    <div class="flex flex-wrap gap-2 mt-4">
+                                        <span class="tech-badge">Computer Science Major</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
                         <div class="group" data-aos="fade-up" data-aos-delay="100">
-                            <div class="border border-accent/20 rounded-lg p-6 hover:border-accent transition-all duration-300">
-                                <div class="flex justify-between items-start mb-2">
-                                    <h3 class="text-xl font-semibold text-white">Allen High School</h3>
-                                    <span class="text-accent">2021 - 2025</span>
+                            <div class="interactive-card border border-accent/20 rounded-lg p-6 relative overflow-hidden">
+                                <div class="content">
+                                    <div class="flex justify-between items-start mb-2">
+                                        <h3 class="text-xl font-semibold text-white">Allen High School</h3>
+                                        <span class="text-accent">2021 - 2025</span>
+                                    </div>
+                                    <p class="text-gray-400 mb-2">High School Diploma</p>
+                                    <p class="text-gray-400">Allen, Texas</p>
                                 </div>
-                                <p class="text-gray-400 mb-2">High School Diploma</p>
-                                <p class="text-gray-400">Allen, Texas</p>
                             </div>
                         </div>
                     </div>
@@ -396,47 +569,53 @@
                     </h2>
                     <div class="space-y-8">
                         <div class="group" data-aos="fade-up">
-                            <div class="border border-accent/20 rounded-lg p-6 hover:border-accent transition-all duration-300">
-                                <div class="flex justify-between items-start mb-2">
-                                    <h3 class="text-xl font-semibold text-white">STEM Instructor</h3>
-                                    <span class="text-accent">Present</span>
+                            <div class="interactive-card border border-accent/20 rounded-lg p-6 relative overflow-hidden">
+                                <div class="content">
+                                    <div class="flex justify-between items-start mb-2">
+                                        <h3 class="text-xl font-semibold text-white">STEM Instructor</h3>
+                                        <span class="text-accent">Present</span>
+                                    </div>
+                                    <p class="text-gray-400 mb-4">iCode McKinney</p>
+                                    <ul class="text-gray-400 space-y-2 list-disc list-inside">
+                                        <li>Teaching programming and STEM concepts to students</li>
+                                        <li>Developing and implementing engaging curriculum</li>
+                                        <li>Mentoring students in various programming languages and technologies</li>
+                                    </ul>
                                 </div>
-                                <p class="text-gray-400 mb-4">iCode McKinney</p>
-                                <ul class="text-gray-400 space-y-2 list-disc list-inside">
-                                    <li>Teaching programming and STEM concepts to students</li>
-                                    <li>Developing and implementing engaging curriculum</li>
-                                    <li>Mentoring students in various programming languages and technologies</li>
-                                </ul>
                             </div>
                         </div>
 
                         <div class="group" data-aos="fade-up" data-aos-delay="100">
-                            <div class="border border-accent/20 rounded-lg p-6 hover:border-accent transition-all duration-300">
-                                <div class="flex justify-between items-start mb-2">
-                                    <h3 class="text-xl font-semibold text-white">Software Developer</h3>
-                                    <span class="text-accent">2022 - 2024</span>
+                            <div class="interactive-card border border-accent/20 rounded-lg p-6 relative overflow-hidden">
+                                <div class="content">
+                                    <div class="flex justify-between items-start mb-2">
+                                        <h3 class="text-xl font-semibold text-white">Software Developer</h3>
+                                        <span class="text-accent">2022 - 2024</span>
+                                    </div>
+                                    <p class="text-gray-400 mb-4">Toys For Texans <span class="text-accent text-sm">(Non-Profit)</span></p>
+                                    <ul class="text-gray-400 space-y-2 list-disc list-inside">
+                                        <li>Developed software solutions for non-profit operations</li>
+                                        <li>Contributed to improving organizational efficiency through technology</li>
+                                        <li>Collaborated with team members to implement technical solutions</li>
+                                    </ul>
                                 </div>
-                                <p class="text-gray-400 mb-4">Toys For Texans <span class="text-accent text-sm">(Non-Profit)</span></p>
-                                <ul class="text-gray-400 space-y-2 list-disc list-inside">
-                                    <li>Developed software solutions for non-profit operations</li>
-                                    <li>Contributed to improving organizational efficiency through technology</li>
-                                    <li>Collaborated with team members to implement technical solutions</li>
-                                </ul>
                             </div>
                         </div>
 
                         <div class="group" data-aos="fade-up" data-aos-delay="200">
-                            <div class="border border-accent/20 rounded-lg p-6 hover:border-accent transition-all duration-300">
-                                <div class="flex justify-between items-start mb-2">
-                                    <h3 class="text-xl font-semibold text-white">Facebook Ad Manager</h3>
-                                    <span class="text-accent">2022 - 2023</span>
+                            <div class="interactive-card border border-accent/20 rounded-lg p-6 relative overflow-hidden">
+                                <div class="content">
+                                    <div class="flex justify-between items-start mb-2">
+                                        <h3 class="text-xl font-semibold text-white">Facebook Ad Manager</h3>
+                                        <span class="text-accent">2022 - 2023</span>
+                                    </div>
+                                    <p class="text-gray-400 mb-4">Lightbulb Tutoring <span class="text-accent text-sm">(Non-Profit)</span></p>
+                                    <ul class="text-gray-400 space-y-2 list-disc list-inside">
+                                        <li>Managed and optimized Facebook advertising campaigns</li>
+                                        <li>Developed strategic social media marketing initiatives</li>
+                                        <li>Analyzed campaign performance and engagement metrics</li>
+                                    </ul>
                                 </div>
-                                <p class="text-gray-400 mb-4">Lightbulb Tutoring <span class="text-accent text-sm">(Non-Profit)</span></p>
-                                <ul class="text-gray-400 space-y-2 list-disc list-inside">
-                                    <li>Managed and optimized Facebook advertising campaigns</li>
-                                    <li>Developed strategic social media marketing initiatives</li>
-                                    <li>Analyzed campaign performance and engagement metrics</li>
-                                </ul>
                             </div>
                         </div>
                     </div>
@@ -453,32 +632,38 @@
                     </h2>
                     <div class="grid md:grid-cols-2 gap-8">
                         <div class="group" data-aos="fade-up">
-                            <div class="border border-accent/20 rounded-lg p-6 hover:border-accent transition-all duration-300">
-                                <div class="flex items-center gap-2 mb-3">
-                                    <i class="fas fa-rocket text-accent text-xl"></i>
-                                    <h3 class="text-xl font-semibold text-white">NASA Hunch Finalist</h3>
+                            <div class="interactive-card border border-accent/20 rounded-lg p-6 relative overflow-hidden">
+                                <div class="content">
+                                    <div class="flex items-center gap-2 mb-3">
+                                        <i class="fas fa-rocket text-accent text-xl"></i>
+                                        <h3 class="text-xl font-semibold text-white">NASA Hunch Finalist</h3>
+                                    </div>
+                                    <p class="text-gray-400">2023-2024 Finalist in the NASA HUNCH (High School Students United with NASA to Create Hardware) program</p>
                                 </div>
-                                <p class="text-gray-400">2023-2024 Finalist in the NASA HUNCH (High School Students United with NASA to Create Hardware) program</p>
                             </div>
                         </div>
 
                         <div class="group" data-aos="fade-up" data-aos-delay="100">
-                            <div class="border border-accent/20 rounded-lg p-6 hover:border-accent transition-all duration-300">
-                                <div class="flex items-center gap-2 mb-3">
-                                    <i class="fas fa-shield-alt text-accent text-xl"></i>
-                                    <h3 class="text-xl font-semibold text-white">CyberPatriot XVI Finalist</h3>
+                            <div class="interactive-card border border-accent/20 rounded-lg p-6 relative overflow-hidden">
+                                <div class="content">
+                                    <div class="flex items-center gap-2 mb-3">
+                                        <i class="fas fa-shield-alt text-accent text-xl"></i>
+                                        <h3 class="text-xl font-semibold text-white">CyberPatriot XVI Finalist</h3>
+                                    </div>
+                                    <p class="text-gray-400">Advanced to Finals in the CyberPatriot XVI National Youth Cyber Defense Competition</p>
                                 </div>
-                                <p class="text-gray-400">Advanced to Finals in the CyberPatriot XVI National Youth Cyber Defense Competition</p>
                             </div>
                         </div>
 
                         <div class="group" data-aos="fade-up" data-aos-delay="200">
-                            <div class="border border-accent/20 rounded-lg p-6 hover:border-accent transition-all duration-300">
-                                <div class="flex items-center gap-2 mb-3">
-                                    <i class="fas fa-shield-alt text-accent text-xl"></i>
-                                    <h3 class="text-xl font-semibold text-white">CyberPatriot XVII Semi-Finalist</h3>
+                            <div class="interactive-card border border-accent/20 rounded-lg p-6 relative overflow-hidden">
+                                <div class="content">
+                                    <div class="flex items-center gap-2 mb-3">
+                                        <i class="fas fa-shield-alt text-accent text-xl"></i>
+                                        <h3 class="text-xl font-semibold text-white">CyberPatriot XVII Semi-Finalist</h3>
+                                    </div>
+                                    <p class="text-gray-400">Advanced to Semi-Finals in the CyberPatriot XVII National Youth Cyber Defense Competition</p>
                                 </div>
-                                <p class="text-gray-400">Advanced to Semi-Finals in the CyberPatriot XVII National Youth Cyber Defense Competition</p>
                             </div>
                         </div>
                     </div>
@@ -495,42 +680,50 @@
                     </h2>
                     <div class="grid md:grid-cols-2 gap-8">
                         <div class="group" data-aos="fade-up">
-                            <div class="border border-accent/20 rounded-lg p-6 hover:border-accent transition-all duration-300">
-                                <div class="flex items-center gap-2 mb-3">
-                                    <i class="fab fa-microsoft text-accent text-xl"></i>
-                                    <h3 class="text-xl font-semibold text-white">Microsoft Word</h3>
+                            <div class="interactive-card border border-accent/20 rounded-lg p-6 relative overflow-hidden">
+                                <div class="content">
+                                    <div class="flex items-center gap-2 mb-3">
+                                        <i class="fab fa-microsoft text-accent text-xl"></i>
+                                        <h3 class="text-xl font-semibold text-white">Microsoft Word</h3>
+                                    </div>
+                                    <p class="text-gray-400">Individual Certification</p>
                                 </div>
-                                <p class="text-gray-400">Individual Certification</p>
                             </div>
                         </div>
 
                         <div class="group" data-aos="fade-up" data-aos-delay="100">
-                            <div class="border border-accent/20 rounded-lg p-6 hover:border-accent transition-all duration-300">
-                                <div class="flex items-center gap-2 mb-3">
-                                    <i class="fab fa-google text-accent text-xl"></i>
-                                    <h3 class="text-xl font-semibold text-white">Google Analytics</h3>
+                            <div class="interactive-card border border-accent/20 rounded-lg p-6 relative overflow-hidden">
+                                <div class="content">
+                                    <div class="flex items-center gap-2 mb-3">
+                                        <i class="fab fa-google text-accent text-xl"></i>
+                                        <h3 class="text-xl font-semibold text-white">Google Analytics</h3>
+                                    </div>
+                                    <p class="text-gray-400">Individual Qualification</p>
                                 </div>
-                                <p class="text-gray-400">Individual Qualification</p>
                             </div>
                         </div>
 
                         <div class="group" data-aos="fade-up" data-aos-delay="200">
-                            <div class="border border-accent/20 rounded-lg p-6 hover:border-accent transition-all duration-300">
-                                <div class="flex items-center gap-2 mb-3">
-                                    <i class="fab fa-html5 text-accent text-xl"></i>
-                                    <h3 class="text-xl font-semibold text-white">HTML</h3>
+                            <div class="interactive-card border border-accent/20 rounded-lg p-6 relative overflow-hidden">
+                                <div class="content">
+                                    <div class="flex items-center gap-2 mb-3">
+                                        <i class="fab fa-html5 text-accent text-xl"></i>
+                                        <h3 class="text-xl font-semibold text-white">HTML</h3>
+                                    </div>
+                                    <p class="text-gray-400">Individual Certification</p>
                                 </div>
-                                <p class="text-gray-400">Individual Certification</p>
                             </div>
                         </div>
 
                         <div class="group" data-aos="fade-up" data-aos-delay="300">
-                            <div class="border border-accent/20 rounded-lg p-6 hover:border-accent transition-all duration-300">
-                                <div class="flex items-center gap-2 mb-3">
-                                    <i class="fab fa-java text-accent text-xl"></i>
-                                    <h3 class="text-xl font-semibold text-white">Java</h3>
+                            <div class="interactive-card border border-accent/20 rounded-lg p-6 relative overflow-hidden">
+                                <div class="content">
+                                    <div class="flex items-center gap-2 mb-3">
+                                        <i class="fab fa-java text-accent text-xl"></i>
+                                        <h3 class="text-xl font-semibold text-white">Java</h3>
+                                    </div>
+                                    <p class="text-gray-400">Individual Certification</p>
                                 </div>
-                                <p class="text-gray-400">Individual Certification</p>
                             </div>
                         </div>
                     </div>
@@ -545,56 +738,83 @@
                     <h2 class="text-3xl font-bold text-white mb-12" data-aos="fade-up">
                         <span class="text-accent">//</span> projects
                     </h2>
+                    
                     <div class="grid md:grid-cols-2 gap-8">
                         <div class="group" data-aos="fade-up">
-                            <div class="border border-accent/20 rounded-lg p-6 hover:border-accent transition-all duration-300">
-                                <h3 class="text-xl font-semibold text-white mb-3">SpendSense</h3>
-                                <p class="text-gray-400 mb-4">A mobile application for personal finance tracking, helping users manage their expenses and monitor spending habits on the go.</p>
-                                <div class="flex space-x-4">
-                                    <a href="https://github.com/s-sannidhi/SpendSense" target="_blank" class="text-accent hover:text-white transition-colors duration-300">
-                                        <i class="fab fa-github mr-2"></i>GitHub →
-                                    </a>
+                            <div class="interactive-card border border-accent/20 rounded-lg p-6 relative overflow-hidden">
+                                <div class="content">
+                                    <h3 class="text-xl font-semibold text-white mb-3">SpendSense</h3>
+                                    <p class="text-gray-400 mb-4">A mobile application for personal finance tracking, helping users manage their expenses and monitor spending habits on the go.</p>
+                                    <div class="tech-stack">
+                                        <span class="tech-badge">Swift</span>
+                                        <span class="tech-badge">SwiftUI</span>
+                                        <span class="tech-badge">Core Data</span>
+                                    </div>
+                                    <div class="flex space-x-4 mt-4">
+                                        <a href="https://github.com/s-sannidhi/SpendSense" target="_blank" class="text-accent hover:text-white transition-colors duration-300">
+                                            <i class="fab fa-github mr-2"></i>GitHub →
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
                         <div class="group" data-aos="fade-up" data-aos-delay="100">
-                            <div class="border border-accent/20 rounded-lg p-6 hover:border-accent transition-all duration-300">
-                                <h3 class="text-xl font-semibold text-white mb-3">Convertly</h3>
-                                <p class="text-gray-400 mb-4">A mobile file conversion tool that simplifies the process of converting files between different formats directly from your phone.</p>
-                                <div class="flex space-x-4">
-                                    <a href="https://github.com/s-sannidhi/Convertly" target="_blank" class="text-accent hover:text-white transition-colors duration-300">
-                                        <i class="fab fa-github mr-2"></i>GitHub →
-                                    </a>
+                            <div class="interactive-card border border-accent/20 rounded-lg p-6 relative overflow-hidden">
+                                <div class="content">
+                                    <h3 class="text-xl font-semibold text-white mb-3">Convertly</h3>
+                                    <p class="text-gray-400 mb-4">A mobile file conversion tool that simplifies the process of converting files between different formats directly from your phone.</p>
+                                    <div class="tech-stack">
+                                        <span class="tech-badge">Swift</span>
+                                        <span class="tech-badge">UIKit</span>
+                                        <span class="tech-badge">AVFoundation</span>
+                                    </div>
+                                    <div class="flex space-x-4 mt-4">
+                                        <a href="https://github.com/s-sannidhi/Convertly" target="_blank" class="text-accent hover:text-white transition-colors duration-300">
+                                            <i class="fab fa-github mr-2"></i>GitHub →
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
                         <div class="group" data-aos="fade-up" data-aos-delay="200">
-                            <div class="border border-accent/20 rounded-lg p-6 hover:border-accent transition-all duration-300">
-                                <h3 class="text-xl font-semibold text-white mb-3">Google But I Made It</h3>
-                                <p class="text-gray-400 mb-4">A custom search engine implementation inspired by Google's functionality, built from scratch to understand search algorithms and web indexing.</p>
-                                <div class="flex space-x-4">
-                                    <a href="https://github.com/s-sannidhi/googlebutimadeit" target="_blank" class="text-accent hover:text-white transition-colors duration-300">
-                                        <i class="fab fa-github mr-2"></i>GitHub →
-                                    </a>
+                            <div class="interactive-card border border-accent/20 rounded-lg p-6 relative overflow-hidden">
+                                <div class="content">
+                                    <h3 class="text-xl font-semibold text-white mb-3">Google But I Made It</h3>
+                                    <p class="text-gray-400 mb-4">A custom search engine implementation inspired by Google's functionality, built from scratch to understand search algorithms and web indexing.</p>
+                                    <div class="tech-stack">
+                                        <span class="tech-badge">Python</span>
+                                        <span class="tech-badge">Flask</span>
+                                        <span class="tech-badge">BeautifulSoup</span>
+                                    </div>
+                                    <div class="flex space-x-4 mt-4">
+                                        <a href="https://github.com/s-sannidhi/googlebutimadeit" target="_blank" class="text-accent hover:text-white transition-colors duration-300">
+                                            <i class="fab fa-github mr-2"></i>GitHub →
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
-
-                        <div class="group" data-aos="fade-up" data-aos-delay="200">
-                            <div class="border border-accent/20 rounded-lg p-6 hover:border-accent transition-all duration-300">
-                                <h3 class="text-xl font-semibold text-white mb-3">Srujan's New Tab</h3>
-                                <p class="text-gray-400 mb-4">A personalized new tab page for my browser of choice, designed to enhance my browsing experience with quick access to key resources and tools.</p>
-                                <div class="flex space-x-4">
-                                    <a href="https://github.com/s-sannidhi/NewTab" target="_blank" class="text-accent hover:text-white transition-colors duration-300">
-                                        <i class="fab fa-github mr-2"></i>GitHub →
-                                    </a>
+                        <div class="group" data-aos="fade-up" data-aos-delay="300">
+                            <div class="interactive-card border border-accent/20 rounded-lg p-6 relative overflow-hidden">
+                                <div class="content">
+                                    <h3 class="text-xl font-semibold text-white mb-3">Srujan's New Tab</h3>
+                                    <p class="text-gray-400 mb-4">A personalized new tab page for my browser of choice, designed to enhance my browsing experience with quick access to key resources and tools.</p>
+                                    <div class="tech-stack">
+                                        <span class="tech-badge">HTML</span>
+                                        <span class="tech-badge">CSS</span>
+                                        <span class="tech-badge">JavaScript</span>
+                                    </div>
+                                    <div class="flex space-x-4 mt-4">
+                                        <a href="https://github.com/s-sannidhi/NewTab" target="_blank" class="text-accent hover:text-white transition-colors duration-300">
+                                            <i class="fab fa-github mr-2"></i>GitHub →
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -733,6 +953,69 @@
                 e.preventDefault();
                 document.querySelector(this.getAttribute('href')).scrollIntoView({
                     behavior: 'smooth'
+                });
+            });
+        });
+
+        // Section Visibility Observer
+        const observerOptions = {
+            root: null,
+            threshold: 0.1,
+            rootMargin: "0px"
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
+
+        // Reveal Animation
+        window.addEventListener('scroll', reveal);
+
+        function reveal() {
+            const reveals = document.querySelectorAll('.reveal');
+            reveals.forEach(element => {
+                const windowHeight = window.innerHeight;
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+
+                if (elementTop < windowHeight - elementVisible) {
+                    element.classList.add('active');
+                }
+            });
+        }
+
+        // Interactive Cards Effect for all sections
+        document.addEventListener('DOMContentLoaded', () => {
+            const cards = document.querySelectorAll('.interactive-card');
+            
+            cards.forEach(card => {
+                card.addEventListener('mousemove', e => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+
+                    card.style.setProperty('--mouse-x', `${x}px`);
+                    card.style.setProperty('--mouse-y', `${y}px`);
+
+                    // Calculate rotation with reduced intensity
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    const rotateX = -(y - centerY) / 40; // Reduced from /20 to /40
+                    const rotateY = (x - centerX) / 40; // Reduced from /20 to /40
+
+                    card.style.transform = `perspective(1500px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(5px)`;
+                });
+
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = 'perspective(1500px) rotateX(0) rotateY(0) translateZ(0)';
                 });
             });
         });
