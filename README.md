@@ -8,8 +8,8 @@ Welcome to my Digital Portfolio — a web-based showcase of my academic, technic
 ## 📌 Features
 
 - **About Me** section with a brief intro and background
+- **Experience** detailing my previous employment and endeavors
 - **Projects** with direct links and descriptions
-- **Resume** integration for professional overview
 - **Clean, responsive design** that works across devices
 - **Custom styling** for a personal, minimal aesthetic
 
@@ -53,11 +53,5 @@ If you'd like to run or modify this portfolio:
 - CSS3
 - JavaScript (Vanilla)
 - [GitHub Pages](https://pages.github.com/) for deployment
-
-## 📄 License
-
-This project is licensed under the [MIT License](LICENSE).
-
----
 
 Feel free to fork, clone, or customize this portfolio as a starting point for your own digital presence.
