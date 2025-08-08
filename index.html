@@ -26,6 +26,27 @@
         }
     </script>
     <style>
+        /* Accent color variables (runtime-themable) */
+        :root {
+            --accent: #ffb86c;              /* default: vesper orange */
+            --accent-rgb: 255, 184, 108;    /* rgb for alpha utilities */
+        }
+
+        /* Map existing accent utilities to CSS variables */
+        .text-accent { color: var(--accent) !important; }
+        .hover\:text-accent:hover { color: var(--accent) !important; }
+        .border-accent { border-color: var(--accent) !important; }
+        .hover\:border-accent:hover { border-color: var(--accent) !important; }
+        .bg-accent { background-color: var(--accent) !important; }
+        .bg-accent\/10 { background-color: rgba(var(--accent-rgb), 0.1) !important; }
+        .border-accent\/20 { border-color: rgba(var(--accent-rgb), 0.2) !important; }
+        /* Extra-safe attribute selectors in case of generator variations */
+        [class~="border-accent/20"], [class*="border-accent/20"] { border-color: rgba(var(--accent-rgb), 0.2) !important; }
+        [class~="bg-accent/10"], [class*="bg-accent/10"] { background-color: rgba(var(--accent-rgb), 0.1) !important; }
+
+        /* For dot nav default background tint */
+        .nav-dot a { background: rgba(var(--accent-rgb), 0.2); }
+        .nav-dot a:hover, .nav-dot a.active { background: var(--accent); }
         html {
             scroll-behavior: smooth;
         }
@@ -253,7 +274,7 @@
             border-radius: 8px;
             background: radial-gradient(
                 800px circle at var(--mouse-x) var(--mouse-y),
-                rgba(255, 184, 108, 0.1),
+                rgba(var(--accent-rgb), 0.1),
                 transparent 40%
             );
             opacity: 0;
@@ -302,6 +323,15 @@
             transform: translateY(-2px);
         }
 
+        /* Theme picker styles */
+        .swatch {
+            width: 1.4rem;
+            height: 1.4rem;
+            border-radius: 9999px;
+            border: 1px solid rgba(255,255,255,0.6);
+            cursor: pointer;
+        }
+
         /* Interactive Card Styles - Applied to all sections */
         .interactive-card {
             transform-style: preserve-3d;
@@ -323,7 +353,7 @@
             border-radius: 8px;
             background: radial-gradient(
                 800px circle at var(--mouse-x) var(--mouse-y),
-                rgba(255, 184, 108, 0.1),
+                rgba(var(--accent-rgb), 0.1),
                 transparent 40%
             );
             opacity: 0;
@@ -414,6 +444,29 @@
                 display: block;
             }
         }
+
+        /* Accent overrides for hard-coded styles to follow theme */
+        .nav-links a::after { background-color: var(--accent) !important; }
+        .nav-active { background-color: rgba(var(--accent-rgb), 0.1) !important; color: var(--accent) !important; }
+        nav a::before { background-color: rgba(var(--accent-rgb), 0.1) !important; }
+        .tech-badge { background: rgba(var(--accent-rgb), 0.1) !important; color: var(--accent) !important; }
+        .tech-badge:hover { background: rgba(var(--accent-rgb), 0.2) !important; }
+        .group:hover .border-accent20 { box-shadow: 0 0 20px rgba(var(--accent-rgb), 0.18) !important; }
+        .group:hover img { box-shadow: 0 0 30px rgba(var(--accent-rgb), 0.25) !important; }
+        .project-card:hover { box-shadow: 0 25px 50px -12px rgba(var(--accent-rgb), 0.15) !important; }
+        /* Runtime utility to force themed borders */
+        .accent-runtime { border-color: rgba(var(--accent-rgb), 0.22) !important; }
+        .accent-runtime-top { border-top-color: rgba(var(--accent-rgb), 0.22) !important; }
+
+        /* Selected swatch highlight */
+        .swatch.selected {
+            outline: 2px solid rgba(255,255,255,0.18);
+            box-shadow: 0 0 0 3px var(--accent), 0 0 18px rgba(var(--accent-rgb), 0.45);
+        }
+        /* Force border color on common components that use border-accent/20 */
+        .interactive-card { border-color: rgba(var(--accent-rgb), 0.2) !important; }
+        footer { border-color: rgba(var(--accent-rgb), 0.2) !important; }
+        .border-t { border-top-color: rgba(var(--accent-rgb), 0.2) !important; }
     </style>
 </head>
 <body class="bg-dark text-gray-300">
@@ -468,6 +521,14 @@
                     </li>
                 </ul>
 
+                <!-- Theme Picker (Desktop) -->
+                <div class="hidden md:flex items-center gap-3">
+                    <div id="theme-vesper" class="swatch" title="Vesper (Orange)" style="background:#FF6A3D"></div>
+                    <div id="theme-nord" class="swatch" title="Nord (Blue)" style="background:#547ABF"></div>
+                    <div id="theme-evergreen" class="swatch" title="Evergreen (Green)" style="background:#A9C76B"></div>
+                    <div id="theme-catppuccin" class="swatch" title="Catppuccin (Purple)" style="background:#D7A9E3"></div>
+                </div>
+
                 <!-- Mobile Menu Button -->
                 <button id="mobile-menu-btn" class="md:hidden text-accent hover:text-white transition-colors duration-300">
                     <i class="fas fa-bars text-xl"></i>
@@ -476,6 +537,13 @@
 
             <!-- Mobile Navigation Menu -->
             <div id="mobile-menu" class="md:hidden hidden bg-dark/95 backdrop-blur-md border-t border-accent/20">
+                <div class="px-4 py-3 flex items-center gap-3">
+                    <span class="text-sm text-gray-400">Theme:</span>
+                    <div id="m-theme-vesper" class="swatch" title="Vesper (Orange)" style="background:#FF6A3D"></div>
+                    <div id="m-theme-nord" class="swatch" title="Nord (Blue)" style="background:#547ABF"></div>
+                    <div id="m-theme-evergreen" class="swatch" title="Evergreen (Green)" style="background:#A9C76B"></div>
+                    <div id="m-theme-catppuccin" class="swatch" title="Catppuccin (Purple)" style="background:#D7A9E3"></div>
+                </div>
                 <ul class="py-4 space-y-2">
                     <li>
                         <a href="#home" class="block text-sm transition-all duration-300 py-3 px-4 hover:bg-accent/10">
@@ -1140,6 +1208,87 @@
         // Interactive Cards Effect for all sections
         document.addEventListener('DOMContentLoaded', () => {
             const cards = document.querySelectorAll('.interactive-card');
+            
+            // Theme handling
+            const themes = {
+                vesper: { hex: '#FF6A3D', rgb: '255, 106, 61' },
+                nord: { hex: '#547ABF', rgb: '84, 122, 191' },
+                evergreen: { hex: '#A9C76B', rgb: '169, 199, 107' },
+                catppuccin: { hex: '#D7A9E3', rgb: '215, 169, 227' }
+            };
+
+            // Ensure our dynamic border overrides load AFTER Tailwind's injected CSS
+            function ensureThemeOverrideStyles() {
+                if (document.getElementById('theme-overrides')) return;
+                const style = document.createElement('style');
+                style.id = 'theme-overrides';
+                style.textContent = `
+                  .border-accent\\/20 { border-color: rgba(var(--accent-rgb), 0.22) !important; }
+                  [class~="border-accent/20"], [class*="border-accent/20"] { border-color: rgba(var(--accent-rgb), 0.22) !important; }
+                  .interactive-card { border-color: rgba(var(--accent-rgb), 0.22) !important; }
+                  footer { border-color: rgba(var(--accent-rgb), 0.22) !important; }
+                  .border-t { border-top-color: rgba(var(--accent-rgb), 0.22) !important; }
+                `;
+                document.head.appendChild(style);
+            }
+            ensureThemeOverrideStyles();
+
+            function applyTheme(key) {
+                const theme = themes[key] || themes.vesper;
+                document.documentElement.style.setProperty('--accent', theme.hex);
+                document.documentElement.style.setProperty('--accent-rgb', theme.rgb);
+                ensureThemeOverrideStyles();
+                // Force-update existing borders to avoid stale static class colors
+                try {
+                    const updateBorderColors = () => {
+                        const themed = document.querySelectorAll('[class*="border-accent/20"], .interactive-card, footer, .border-t');
+                        themed.forEach((el) => {
+                            if (el.classList.contains('border-t')) {
+                                el.style.borderTopColor = `rgba(${theme.rgb}, 0.22)`;
+                            } else {
+                                el.style.borderColor = `rgba(${theme.rgb}, 0.22)`;
+                            }
+                        });
+                    };
+                    updateBorderColors();
+                } catch (_) {}
+                // Update particles color live if available
+                try {
+                    if (window.pJSDom && window.pJSDom[0]) {
+                        window.pJSDom[0].pJS.particles.color.value = theme.hex;
+                        window.pJSDom[0].pJS.particles.line_linked.color = theme.hex;
+                        window.pJSDom[0].pJS.fn.particlesRefresh();
+                    }
+                } catch (_) {}
+            }
+
+            // Load saved theme
+            const saved = localStorage.getItem('theme-accent');
+            if (saved && themes[saved]) {
+                applyTheme(saved);
+                const savedEls = [
+                    document.getElementById('theme-' + saved),
+                    document.getElementById('m-theme-' + saved)
+                ];
+                savedEls.forEach(se => se && se.classList.add('selected'));
+            }
+
+            // Bind swatches (desktop + mobile)
+            const map = [
+                ['theme-vesper','vesper'], ['theme-nord','nord'], ['theme-evergreen','evergreen'], ['theme-catppuccin','catppuccin'],
+                ['m-theme-vesper','vesper'], ['m-theme-nord','nord'], ['m-theme-evergreen','evergreen'], ['m-theme-catppuccin','catppuccin']
+            ];
+            map.forEach(([id, key]) => {
+                const el = document.getElementById(id);
+                if (el) {
+                    el.addEventListener('click', () => {
+                        applyTheme(key);
+                        localStorage.setItem('theme-accent', key);
+                        document.querySelectorAll('.swatch').forEach(s => s.classList.remove('selected'));
+                        el.classList.add('selected');
+                    });
+                }
+            });
             
             cards.forEach(card => {
                 card.addEventListener('mousemove', e => {
