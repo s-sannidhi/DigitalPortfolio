@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Srujan Sannidhi - Portfolio</title>
-    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link id="site-favicon" rel="icon" type="image/svg+xml" href="favicon.svg">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -523,7 +523,7 @@
 
                 <!-- Theme Picker (Desktop) -->
                 <div class="hidden md:flex items-center gap-3">
-                    <div id="theme-vesper" class="swatch" title="Vesper (Orange)" style="background:#FF6A3D"></div>
+                    <div id="theme-vesper" class="swatch" title="Vesper (Orange)" style="background:#ffb86c"></div>
                     <div id="theme-nord" class="swatch" title="Nord (Blue)" style="background:#547ABF"></div>
                     <div id="theme-evergreen" class="swatch" title="Evergreen (Green)" style="background:#A9C76B"></div>
                     <div id="theme-catppuccin" class="swatch" title="Catppuccin (Purple)" style="background:#D7A9E3"></div>
@@ -539,7 +539,7 @@
             <div id="mobile-menu" class="md:hidden hidden bg-dark/95 backdrop-blur-md border-t border-accent/20">
                 <div class="px-4 py-3 flex items-center gap-3">
                     <span class="text-sm text-gray-400">Theme:</span>
-                    <div id="m-theme-vesper" class="swatch" title="Vesper (Orange)" style="background:#FF6A3D"></div>
+                    <div id="m-theme-vesper" class="swatch" title="Vesper (Orange)" style="background:#ffb86c"></div>
                     <div id="m-theme-nord" class="swatch" title="Nord (Blue)" style="background:#547ABF"></div>
                     <div id="m-theme-evergreen" class="swatch" title="Evergreen (Green)" style="background:#A9C76B"></div>
                     <div id="m-theme-catppuccin" class="swatch" title="Catppuccin (Purple)" style="background:#D7A9E3"></div>
@@ -1096,10 +1096,11 @@
         });
 
         // Initialize Particles.js
+        const accentHex = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim() || '#ffb86c';
         particlesJS('particles-js', {
             particles: {
                 number: { value: 80, density: { enable: true, value_area: 800 } },
-                color: { value: '#ffb86c' },
+                color: { value: accentHex },
                 shape: { type: 'circle' },
                 opacity: {
                     value: 0.5,
@@ -1114,7 +1115,7 @@
                 line_linked: {
                     enable: true,
                     distance: 150,
-                    color: '#ffb86c',
+                    color: accentHex,
                     opacity: 0.3,
                     width: 1.5
                 },
@@ -1250,7 +1251,7 @@
             
             // Theme handling
             const themes = {
-                vesper: { hex: '#FF6A3D', rgb: '255, 106, 61' },
+                vesper: { hex: '#ffb86c', rgb: '255, 184, 108' },
                 nord: { hex: '#547ABF', rgb: '84, 122, 191' },
                 evergreen: { hex: '#A9C76B', rgb: '169, 199, 107' },
                 catppuccin: { hex: '#D7A9E3', rgb: '215, 169, 227' }
@@ -1314,6 +1315,27 @@
                         window.pJSDom[0].pJS.particles.line_linked.color = theme.hex;
                         window.pJSDom[0].pJS.fn.particlesRefresh();
                     }
+                } catch (_) {}
+
+                // Update favicon color to match theme
+                try {
+                    const svg = `<?xml version="1.0" encoding="UTF-8"?>\n<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"><rect width=\"100\" height=\"100\" rx=\"8\" fill=\"#0a0a0a\"/><text x=\"50\" y=\"68\" font-family=\"Consolas, 'Courier New', monospace\" font-weight=\"900\" font-size=\"70\" fill=\"${theme.hex}\" text-anchor=\"middle\">/S</text></svg>`;
+                    const blob = new Blob([svg], { type: 'image/svg+xml' });
+                    const url = URL.createObjectURL(blob);
+                    let link = document.getElementById('site-favicon');
+                    if (!link) {
+                        link = document.createElement('link');
+                        link.id = 'site-favicon';
+                        link.rel = 'icon';
+                        link.type = 'image/svg+xml';
+                        document.head.appendChild(link);
+                    }
+                    // Revoke previous to avoid leaks
+                    if (link.dataset.objectUrl) {
+                        try { URL.revokeObjectURL(link.dataset.objectUrl); } catch(_) {}
+                    }
+                    link.href = url;
+                    link.dataset.objectUrl = url;
                 } catch (_) {}
             }
 
