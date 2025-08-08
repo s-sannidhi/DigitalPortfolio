@@ -664,6 +664,43 @@
                                         <span>Swift</span>
                                     </div>
                                 </div>
+                                <!-- LeetCode Progress (About) -->
+                                <div class="mt-6 group">
+                                    <div class="interactive-card border border-accent/20 rounded-lg p-4 sm:p-6 relative overflow-hidden">
+                                        <div class="content">
+                                            <div class="flex items-center gap-2 mb-3">
+                                                <i class="fas fa-code text-accent"></i>
+                                                <h4 class="font-semibold text-white">LeetCode Progress</h4>
+                                            </div>
+                                            <div id="leetcode-widget" class="flex items-center gap-4 sm:gap-6">
+                                                <div class="relative w-32 h-32 sm:w-40 sm:h-40">
+                                                    <svg width="160" height="160" viewBox="0 0 160 160" class="block">
+                                                        <g transform="translate(80,80)">
+                                                            <circle r="60" stroke="#2a2a2a" stroke-width="10" fill="none"></circle>
+                                                            <circle id="lc-ring-easy" r="60" stroke="#22c55e" stroke-width="10" fill="none" stroke-linecap="round" transform="rotate(-90)" stroke-dasharray="0 999"></circle>
+                                                            <circle r="48" stroke="#2a2a2a" stroke-width="10" fill="none"></circle>
+                                                            <circle id="lc-ring-medium" r="48" stroke="#f59e0b" stroke-width="10" fill="none" stroke-linecap="round" transform="rotate(-90)" stroke-dasharray="0 999"></circle>
+                                                            <circle r="36" stroke="#2a2a2a" stroke-width="10" fill="none"></circle>
+                                                            <circle id="lc-ring-hard" r="36" stroke="#ef4444" stroke-width="10" fill="none" stroke-linecap="round" transform="rotate(-90)" stroke-dasharray="0 999"></circle>
+                                                        </g>
+                                                    </svg>
+                                                    <div class="absolute inset-0 flex items-center justify-center">
+                                                        <div class="text-center leading-tight">
+                                                            <div class="text-[10px] sm:text-xs text-gray-400">Solved</div>
+                                                            <div id="lc-total" class="text-xl sm:text-2xl font-bold text-white">—</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="space-y-1.5 sm:space-y-2 text-xs sm:text-sm">
+                                                    <div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full" style="background:#22c55e"></span> <span class="text-gray-300">Easy</span> <span id="lc-easy" class="ml-2 text-gray-400">—</span></div>
+                                                    <div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full" style="background:#f59e0b"></span> <span class="text-gray-300">Medium</span> <span id="lc-medium" class="ml-2 text-gray-400">—</span></div>
+                                                    <div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full" style="background:#ef4444"></span> <span class="text-gray-300">Hard</span> <span id="lc-hard" class="ml-2 text-gray-400">—</span></div>
+                                                </div>
+                                            </div>
+                                            <div id="lc-error" class="hidden mt-3 text-sm text-red-400">Unable to load LeetCode stats right now.</div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="order-1 md:order-2" data-aos="fade-left">
@@ -829,6 +866,8 @@
                                 </div>
                             </div>
                         </div>
+
+                        
                     </div>
                 </div>
             </div>
@@ -1233,17 +1272,33 @@
             }
             ensureThemeOverrideStyles();
 
+            // Normalize border classes to runtime themed variants once
+            function normalizeBorders() {
+                const nodes = document.querySelectorAll('[class*="border-accent/20"]');
+                nodes.forEach((el) => {
+                    const hasTop = el.classList.contains('border-t');
+                    el.className = el.className.replace(/border-accent\/20/g, '').replace(/\s+/g, ' ').trim();
+                    if (hasTop) {
+                        el.classList.add('accent-runtime-top');
+                    } else {
+                        el.classList.add('accent-runtime');
+                    }
+                });
+                document.querySelectorAll('.interactive-card').forEach((el) => el.classList.add('accent-runtime'));
+            }
+
             function applyTheme(key) {
                 const theme = themes[key] || themes.vesper;
                 document.documentElement.style.setProperty('--accent', theme.hex);
                 document.documentElement.style.setProperty('--accent-rgb', theme.rgb);
                 ensureThemeOverrideStyles();
+                normalizeBorders();
                 // Force-update existing borders to avoid stale static class colors
                 try {
                     const updateBorderColors = () => {
-                        const themed = document.querySelectorAll('[class*="border-accent/20"], .interactive-card, footer, .border-t');
+                        const themed = document.querySelectorAll('.accent-runtime, .interactive-card, footer, .accent-runtime-top');
                         themed.forEach((el) => {
-                            if (el.classList.contains('border-t')) {
+                            if (el.classList.contains('accent-runtime-top')) {
                                 el.style.borderTopColor = `rgba(${theme.rgb}, 0.22)`;
                             } else {
                                 el.style.borderColor = `rgba(${theme.rgb}, 0.22)`;
@@ -1271,6 +1326,8 @@
                     document.getElementById('m-theme-' + saved)
                 ];
                 savedEls.forEach(se => se && se.classList.add('selected'));
+            } else {
+                normalizeBorders();
             }
 
             // Bind swatches (desktop + mobile)
@@ -1289,6 +1346,81 @@
                     });
                 }
             });
+
+            // LeetCode widget fetch and render
+            (async function loadLeetCode() {
+                const username = 's-sannidhi';
+                const widget = document.getElementById('leetcode-widget');
+                if (!widget) return;
+
+                // Try two endpoints: leetcard.xyz (JSON) then lc-proxy GraphQL
+                async function fetchStats() {
+                    try {
+                        const r = await fetch(`https://leetcode-stats-api.herokuapp.com/${username}`);
+                        if (r.ok) {
+                            const d = await r.json();
+                            if (d && typeof d.totalSolved === 'number') return {
+                                totalSolved: d.totalSolved,
+                                easySolved: d.easySolved,
+                                mediumSolved: d.mediumSolved,
+                                hardSolved: d.hardSolved,
+                                totalQuestions: d.totalQuestions,
+                                easyTotal: d.totalEasy,
+                                mediumTotal: d.totalMedium,
+                                hardTotal: d.totalHard,
+                            };
+                        }
+                    } catch (_) {}
+                    try {
+                        const q = {
+                            query: `query getUserProfile($username: String!) { allQuestionsCount { difficulty count } matchedUser(username: $username) { submitStatsGlobal { acSubmissionNum { difficulty count submissions } } } }`,
+                            variables: { username }
+                        };
+                        const r2 = await fetch('https://leetcode.com/graphql', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(q) });
+                        if (r2.ok) {
+                            const j = await r2.json();
+                            const counts = j?.data?.matchedUser?.submitStatsGlobal?.acSubmissionNum || [];
+                            const all = j?.data?.allQuestionsCount || [];
+                            const map = Object.fromEntries(counts.map(c => [c.difficulty.toLowerCase(), c.count]));
+                            const totals = Object.fromEntries(all.map(c => [c.difficulty.toLowerCase(), c.count]));
+                            return {
+                                totalSolved: (map.all || 0),
+                                easySolved: (map.easy || 0),
+                                mediumSolved: (map.medium || 0),
+                                hardSolved: (map.hard || 0),
+                                totalQuestions: (totals.all || 0),
+                                easyTotal: (totals.easy || 0),
+                                mediumTotal: (totals.medium || 0),
+                                hardTotal: (totals.hard || 0),
+                            };
+                        }
+                    } catch (_) {}
+                    return null;
+                }
+
+                function setRing(circle, solved, total) {
+                    const r = parseFloat(circle.getAttribute('r'));
+                    const c = 2 * Math.PI * r;
+                    const pct = total > 0 ? Math.max(0, Math.min(1, solved / total)) : 0;
+                    circle.setAttribute('stroke-dasharray', `${pct * c} ${c}`);
+                }
+
+                try {
+                    const data = await fetchStats();
+                    if (!data) throw new Error('no data');
+                    const { totalSolved, easySolved, mediumSolved, hardSolved, easyTotal, mediumTotal, hardTotal } = data;
+                    document.getElementById('lc-total').textContent = totalSolved;
+                    document.getElementById('lc-easy').textContent = `${easySolved} / ${easyTotal}`;
+                    document.getElementById('lc-medium').textContent = `${mediumSolved} / ${mediumTotal}`;
+                    document.getElementById('lc-hard').textContent = `${hardSolved} / ${hardTotal}`;
+                    setRing(document.getElementById('lc-ring-easy'), easySolved, easyTotal);
+                    setRing(document.getElementById('lc-ring-medium'), mediumSolved, mediumTotal);
+                    setRing(document.getElementById('lc-ring-hard'), hardSolved, hardTotal);
+                } catch (e) {
+                    const err = document.getElementById('lc-error');
+                    if (err) err.classList.remove('hidden');
+                }
+            })();
             
             cards.forEach(card => {
                 card.addEventListener('mousemove', e => {
