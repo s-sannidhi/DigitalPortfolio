@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <link rel="stylesheet" href="styles.css" />
     <script>
         tailwind.config = {
             theme: {
@@ -25,449 +26,6 @@
             }
         }
     </script>
-    <style>
-        /* Accent color variables (runtime-themable) */
-        :root {
-            --accent: #ffb86c;              /* default: vesper orange */
-            --accent-rgb: 255, 184, 108;    /* rgb for alpha utilities */
-        }
-
-        /* Map existing accent utilities to CSS variables */
-        .text-accent { color: var(--accent) !important; }
-        .hover\:text-accent:hover { color: var(--accent) !important; }
-        .border-accent { border-color: var(--accent) !important; }
-        .hover\:border-accent:hover { border-color: var(--accent) !important; }
-        .bg-accent { background-color: var(--accent) !important; }
-        .bg-accent\/10 { background-color: rgba(var(--accent-rgb), 0.1) !important; }
-        .border-accent\/20 { border-color: rgba(var(--accent-rgb), 0.2) !important; }
-        /* Extra-safe attribute selectors in case of generator variations */
-        [class~="border-accent/20"], [class*="border-accent/20"] { border-color: rgba(var(--accent-rgb), 0.2) !important; }
-        [class~="bg-accent/10"], [class*="bg-accent/10"] { background-color: rgba(var(--accent-rgb), 0.1) !important; }
-
-        /* For dot nav default background tint */
-        .nav-dot a { background: rgba(var(--accent-rgb), 0.2); }
-        .nav-dot a:hover, .nav-dot a.active { background: var(--accent); }
-        html {
-            scroll-behavior: smooth;
-        }
-        
-        body { 
-            font-family: 'Space Grotesk', sans-serif;
-        }
-
-        #particles-js {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            filter: none;
-        }
-
-        .content {
-            position: relative;
-            z-index: 1;
-        }
-
-        section {
-            min-height: 100vh;
-            padding: 3rem 0;
-            margin: 0;
-            position: relative;
-            background: transparent;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-        }
-
-        section.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .nav-dot {
-            position: fixed;
-            right: 2rem;
-            top: 50%;
-            transform: translateY(-50%);
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            z-index: 50;
-        }
-
-        .nav-dot a {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: rgba(255, 184, 108, 0.2);
-            transition: all 0.3s;
-        }
-
-        .nav-dot a:hover, .nav-dot a.active {
-            background: #ffb86c;
-            transform: scale(1.2);
-        }
-
-        .typed-cursor {
-            opacity: 1;
-            animation: typedjsBlink 0.7s infinite;
-            font-size: 2rem;
-            position: relative;
-            top: -2px;
-        }
-
-        @keyframes typedjsBlink {
-            50% { opacity: 0.0; }
-        }
-
-        /* Update the typing animation container styles */
-        #typed {
-            display: inline-block;
-            text-align: center;
-            min-height: 40px;
-            position: relative;
-            padding: 4px 0;
-        }
-
-        /* Add gradient overlay to sections */
-        section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 100px;
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        /* Enhance card hover effects */
-        .group:hover .border-accent20 {
-            box-shadow: 0 0 20px rgba(255, 184, 108, 0.1);
-            transform: translateY(-2px);
-        }
-
-        .border-accent20 {
-            transition: all 0.3s ease;
-        }
-
-        /* Enhance section headings */
-        h2.text-3xl {
-            position: relative;
-            display: inline-block;
-            margin-bottom: 2rem;
-        }
-
-        /* Enhance navigation */
-        .nav-links a {
-            position: relative;
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            left: 0;
-            width: 0;
-            height: 1px;
-            background-color: #ffb86c;
-            transition: width 0.3s ease;
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-
-        /* Active nav link style */
-        .nav-active {
-            background-color: rgba(255, 184, 108, 0.1);
-            color: #ffb86c;
-        }
-
-        /* Enhance particles */
-        canvas {
-            opacity: 0.8 !important;
-        }
-
-        /* Enhance image hover */
-        .group:hover img {
-            transform: scale(1.01);
-            box-shadow: 0 0 30px rgba(255, 184, 108, 0.2);
-        }
-
-        /* Add subtle animation to social icons */
-        .social-links a:hover i {
-            transform: translateY(-2px);
-        }
-
-        .social-links a i {
-            transition: transform 0.3s ease;
-        }
-
-        /* Update navigation styles */
-        nav a {
-            position: relative;
-            opacity: 0.7;
-        }
-
-        nav a:hover {
-            opacity: 1;
-        }
-
-        nav a::before {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 100%;
-            background-color: rgba(255, 184, 108, 0.1);
-            left: 0;
-            top: 0;
-            border-radius: 4px;
-            transition: all 0.3s ease;
-        }
-
-        nav a:hover::before {
-            width: 100%;
-        }
-
-        /* Section Transition Styles */
-        section {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-        }
-
-        section.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Reveal Animation for Elements */
-        .reveal {
-            position: relative;
-            transform: translateY(50px);
-            opacity: 0;
-            transition: all 1s ease;
-        }
-
-        .reveal.active {
-            transform: translateY(0px);
-            opacity: 1;
-        }
-
-        /* Interactive Project Cards */
-        .project-card {
-            transform-style: preserve-3d;
-            transform: perspective(1000px);
-            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
-        }
-
-        .project-card:hover {
-            transform: perspective(1000px) rotateX(10deg) rotateY(10deg) translateZ(20px);
-            box-shadow: 0 25px 50px -12px rgba(255, 184, 108, 0.15);
-        }
-
-        .project-card::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border-radius: 8px;
-            background: radial-gradient(
-                800px circle at var(--mouse-x) var(--mouse-y),
-                rgba(var(--accent-rgb), 0.1),
-                transparent 40%
-            );
-            opacity: 0;
-            transition: opacity 0.5s;
-        }
-
-        .project-card:hover::before {
-            opacity: 1;
-        }
-
-        .project-card .content {
-            transform: translateZ(20px);
-            transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
-        }
-
-        .project-card:hover .content {
-            transform: translateZ(40px);
-        }
-
-        .project-card .tech-stack {
-            display: flex;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-            margin-top: 1rem;
-            opacity: 0;
-            transform: translateY(10px);
-            transition: all 0.3s ease;
-        }
-
-        .project-card:hover .tech-stack {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .tech-badge {
-            font-size: 0.75rem;
-            padding: 0.25rem 0.75rem;
-            border-radius: 9999px;
-            background: rgba(255, 184, 108, 0.1);
-            color: #ffb86c;
-            transition: all 0.3s ease;
-        }
-
-        .tech-badge:hover {
-            background: rgba(255, 184, 108, 0.2);
-            transform: translateY(-2px);
-        }
-
-        /* Theme picker styles */
-        .swatch {
-            width: 1.4rem;
-            height: 1.4rem;
-            border-radius: 9999px;
-            border: 1px solid rgba(255,255,255,0.6);
-            cursor: pointer;
-        }
-
-        /* Interactive Card Styles - Applied to all sections */
-        .interactive-card {
-            transform-style: preserve-3d;
-            transform: perspective(1500px);
-            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-            background: rgba(10, 10, 10, 0.2);
-            backdrop-filter: blur(10px);
-        }
-
-        .interactive-card:hover {
-            transform: perspective(1500px) rotateX(5deg) rotateY(5deg) translateZ(10px);
-            box-shadow: 0 15px 30px -12px rgba(255, 184, 108, 0.1);
-        }
-
-        .interactive-card::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border-radius: 8px;
-            background: radial-gradient(
-                800px circle at var(--mouse-x) var(--mouse-y),
-                rgba(var(--accent-rgb), 0.1),
-                transparent 40%
-            );
-            opacity: 0;
-            transition: opacity 0.5s;
-        }
-
-        .interactive-card:hover::before {
-            opacity: 1;
-        }
-
-        .interactive-card .content {
-            transform: translateZ(10px);
-            transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-            position: relative;
-        }
-
-        .interactive-card:hover .content {
-            transform: translateZ(20px);
-        }
-
-        /* Tech stack styles */
-        .tech-stack {
-            display: flex;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-            margin-top: 1rem;
-            opacity: 0;
-            transform: translateY(10px);
-            transition: all 0.3s ease;
-        }
-
-        .interactive-card:hover .tech-stack {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .tech-badge {
-            font-size: 0.75rem;
-            padding: 0.25rem 0.75rem;
-            border-radius: 9999px;
-            background: rgba(255, 184, 108, 0.1);
-            color: #ffb86c;
-            transition: all 0.3s ease;
-        }
-
-        .tech-badge:hover {
-            background: rgba(255, 184, 108, 0.2);
-            transform: translateY(-2px);
-        }
-
-        /* Mobile-specific improvements */
-        @media (max-width: 768px) {
-            .nav-dot {
-                display: none !important;
-            }
-            
-            section {
-                padding: 2rem 0;
-                min-height: auto;
-            }
-            
-            .content-wrapper {
-                padding: 1rem;
-            }
-            
-            /* Improve touch targets */
-            .interactive-card {
-                cursor: pointer;
-            }
-            
-            /* Reduce particle count on mobile for better performance */
-            #particles-js canvas {
-                opacity: 0.4 !important;
-            }
-        }
-
-        /* Improve mobile navigation */
-        @media (max-width: 768px) {
-            nav {
-                padding: 0 1rem;
-            }
-            
-            #mobile-menu {
-                transition: all 0.3s ease;
-            }
-            
-            #mobile-menu:not(.hidden) {
-                display: block;
-            }
-        }
-
-        /* Accent overrides for hard-coded styles to follow theme */
-        .nav-links a::after { background-color: var(--accent) !important; }
-        .nav-active { background-color: rgba(var(--accent-rgb), 0.1) !important; color: var(--accent) !important; }
-        nav a::before { background-color: rgba(var(--accent-rgb), 0.1) !important; }
-        .tech-badge { background: rgba(var(--accent-rgb), 0.1) !important; color: var(--accent) !important; }
-        .tech-badge:hover { background: rgba(var(--accent-rgb), 0.2) !important; }
-        .group:hover .border-accent20 { box-shadow: 0 0 20px rgba(var(--accent-rgb), 0.18) !important; }
-        .group:hover img { box-shadow: 0 0 30px rgba(var(--accent-rgb), 0.25) !important; }
-        .project-card:hover { box-shadow: 0 25px 50px -12px rgba(var(--accent-rgb), 0.15) !important; }
-        /* Runtime utility to force themed borders */
-        .accent-runtime { border-color: rgba(var(--accent-rgb), 0.22) !important; }
-        .accent-runtime-top { border-top-color: rgba(var(--accent-rgb), 0.22) !important; }
-
-        /* Selected swatch highlight */
-        .swatch.selected {
-            outline: 2px solid rgba(255,255,255,0.18);
-            box-shadow: 0 0 0 3px var(--accent), 0 0 18px rgba(var(--accent-rgb), 0.45);
-        }
-        /* Force border color on common components that use border-accent/20 */
-        .interactive-card { border-color: rgba(var(--accent-rgb), 0.2) !important; }
-        footer { border-color: rgba(var(--accent-rgb), 0.2) !important; }
-        .border-t { border-top-color: rgba(var(--accent-rgb), 0.2) !important; }
-    </style>
 </head>
 <body class="bg-dark text-gray-300">
     <div id="particles-js"></div>
@@ -523,10 +81,10 @@
 
                 <!-- Theme Picker (Desktop) -->
                 <div class="hidden md:flex items-center gap-3">
-                    <div id="theme-vesper" class="swatch" title="Vesper (Orange)" style="background:#ffb86c"></div>
-                    <div id="theme-nord" class="swatch" title="Nord (Blue)" style="background:#547ABF"></div>
-                    <div id="theme-evergreen" class="swatch" title="Evergreen (Green)" style="background:#A9C76B"></div>
-                    <div id="theme-catppuccin" class="swatch" title="Catppuccin (Purple)" style="background:#D7A9E3"></div>
+                    <div id="theme-vesper" class="swatch" title="Vesper (Orange)"></div>
+                    <div id="theme-nord" class="swatch" title="Nord (Blue)"></div>
+                    <div id="theme-evergreen" class="swatch" title="Evergreen (Green)"></div>
+                    <div id="theme-catppuccin" class="swatch" title="Catppuccin (Purple)"></div>
                 </div>
 
                 <!-- Mobile Menu Button -->
@@ -539,10 +97,10 @@
             <div id="mobile-menu" class="md:hidden hidden bg-dark/95 backdrop-blur-md border-t border-accent/20">
                 <div class="px-4 py-3 flex items-center gap-3">
                     <span class="text-sm text-gray-400">Theme:</span>
-                    <div id="m-theme-vesper" class="swatch" title="Vesper (Orange)" style="background:#ffb86c"></div>
-                    <div id="m-theme-nord" class="swatch" title="Nord (Blue)" style="background:#547ABF"></div>
-                    <div id="m-theme-evergreen" class="swatch" title="Evergreen (Green)" style="background:#A9C76B"></div>
-                    <div id="m-theme-catppuccin" class="swatch" title="Catppuccin (Purple)" style="background:#D7A9E3"></div>
+                    <div id="m-theme-vesper" class="swatch" title="Vesper (Orange)"></div>
+                    <div id="m-theme-nord" class="swatch" title="Nord (Blue)"></div>
+                    <div id="m-theme-evergreen" class="swatch" title="Evergreen (Green)"></div>
+                    <div id="m-theme-catppuccin" class="swatch" title="Catppuccin (Purple)"></div>
                 </div>
                 <ul class="py-4 space-y-2">
                     <li>
@@ -605,7 +163,7 @@
     <div class="content">
         <!-- Home Section -->
         <section id="home">
-            <div class="content-wrapper min-h-screen flex items-center justify-center px-4" style="margin-top: -5rem;">
+            <div class="content-wrapper min-h-screen flex items-center justify-center px-4 home-offset">
                 <div class="text-center" data-aos="fade-up">
                     <p class="text-accent mb-4 font-mono text-sm sm:text-base">Hi, my name is</p>
                     <h1 class="text-4xl sm:text-5xl md:text-7xl font-bold text-white mb-4 leading-tight">Srujan Sannidhi</h1>
@@ -692,9 +250,9 @@
                                                     </div>
                                                 </div>
                                                 <div class="space-y-1.5 sm:space-y-2 text-xs sm:text-sm text-center md:text-left">
-                                                    <div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full" style="background:#22c55e"></span> <span class="text-gray-300">Easy</span> <span id="lc-easy" class="ml-2 text-gray-400">—</span></div>
-                                                    <div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full" style="background:#f59e0b"></span> <span class="text-gray-300">Medium</span> <span id="lc-medium" class="ml-2 text-gray-400">—</span></div>
-                                                    <div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full" style="background:#ef4444"></span> <span class="text-gray-300">Hard</span> <span id="lc-hard" class="ml-2 text-gray-400">—</span></div>
+                                                    <div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-easy"></span> <span class="text-gray-300">Easy</span> <span id="lc-easy" class="ml-2 text-gray-400">—</span></div>
+                                                    <div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-medium"></span> <span class="text-gray-300">Medium</span> <span id="lc-medium" class="ml-2 text-gray-400">—</span></div>
+                                                    <div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-hard"></span> <span class="text-gray-300">Hard</span> <span id="lc-hard" class="ml-2 text-gray-400">—</span></div>
                                                 </div>
                                             </div>
                                             <div id="lc-error" class="hidden mt-3 text-sm text-red-400">Unable to load LeetCode stats right now.</div>
