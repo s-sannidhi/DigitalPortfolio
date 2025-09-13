@@ -1,6 +1,6 @@
 # Digital Portfolio
 
-Welcome to my Digital Portfolio — a web-based showcase of my academic, technical, and creative work built using HTML, CSS, and JavaScript. This project was designed as a central hub to represent who I am, what I’ve built, and where I’m headed.
+A web-based showcase of my academic, technical, and creative work built using HTML, CSS, and JavaScript. This project was designed as a central hub to represent who I am, what I’ve built, and where I’m headed.
 
 ## 🌐 Live Demo
 > [View Portfolio](https://s-sannidhi.github.io/DigitalPortfolio/)
