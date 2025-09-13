@@ -13,20 +13,6 @@ A web-based showcase of my academic, technical, and creative work built using HT
 - **Clean, responsive design** that works across devices
 - **Custom styling** for a personal, minimal aesthetic
 
-## 📁 Project Structure
-
-```
-DigitalPortfolio/
-├── assets/               # Images, fonts, and other static resources
-├── css/
-│   └── style.css         # Custom styles
-├── js/
-│   └── script.js         # JavaScript (if needed)
-├── index.html            # Main landing page
-├── resume.html           # Resume page
-└── projects.html         # Projects showcase
-```
-
 ## 🎯 Goals
 
 This project serves as a personal branding tool and coding exercise in:
@@ -35,17 +21,6 @@ This project serves as a personal branding tool and coding exercise in:
 - UI/UX design thinking
 - Responsive design without heavy frameworks
 - GitHub Pages deployment
-
-## 🚀 How to Use
-
-If you'd like to run or modify this portfolio:
-
-1. Clone the repo:
-   ```bash
-   git clone https://github.com/s-sannidhi/DigitalPortfolio.git
-   ```
-2. Open `index.html` in your browser or use a local server (like Live Server in VS Code).
-3. Customize the content in the HTML files and update styles in `style.css`.
 
 ## 🛠️ Tech Stack
 
