@@ -200,8 +200,16 @@ footer {
 /* ====== App custom styles moved from index.html ====== */
 /* Accent color variables (runtime-themable) */
 :root {
-    --accent: #ffb86c;              /* default: vesper orange */
-    --accent-rgb: 255, 184, 108;    /* rgb for alpha utilities */
+    --accent: #c4a574;              /* default: mocha (warm coffee / caramel) */
+    --accent-rgb: 196, 165, 116;
+    --surface: #0a0a0a;
+    --surface-nav: rgba(10, 10, 10, 0.85);
+}
+
+/* Warmer espresso-toned canvas so mocha accent reads stronger (other themes stay neutral black) */
+html[data-theme="mocha"] {
+    --surface: #1e1814;
+    --surface-nav: rgba(32, 26, 21, 0.94);
 }
 
 /* Map existing accent utilities to CSS variables */
@@ -222,6 +230,7 @@ footer {
 .bg-hard { background: #ef4444; }
 
 /* Default swatch colors (desktop + mobile) */
+#theme-mocha, #m-theme-mocha { background: #c4a574; }
 #theme-vesper, #m-theme-vesper { background: #ffb86c; }
 #theme-nord, #m-theme-nord { background: #547ABF; }
 #theme-evergreen, #m-theme-evergreen { background: #A9C76B; }
@@ -230,6 +239,21 @@ footer {
 /* Base behavior */
 html { scroll-behavior: smooth; }
 body { font-family: 'Space Grotesk', sans-serif; }
+
+body.bg-dark {
+    background-color: var(--surface) !important;
+    transition: background-color 0.4s ease;
+}
+
+body > nav.fixed.top-0.w-full {
+    background-color: var(--surface-nav) !important;
+    transition: background-color 0.4s ease;
+}
+
+#mobile-menu {
+    background-color: var(--surface-nav) !important;
+    transition: background-color 0.4s ease;
+}
 
 #particles-js {
     position: fixed;

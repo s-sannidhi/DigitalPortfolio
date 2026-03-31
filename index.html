@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="mocha">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,7 +17,7 @@
                     colors: {
                         dark: '#0a0a0a',
                         darker: '#050505',
-                        accent: '#ffb86c'
+                        accent: '#c4a574'
                     },
                     fontFamily: {
                         space: ['Space Grotesk', 'sans-serif']
@@ -81,6 +81,7 @@
 
                 <!-- Theme Picker (Desktop) -->
                 <div class="hidden md:flex items-center gap-3">
+                    <div id="theme-mocha" class="swatch selected" title="Mocha (Coffee)"></div>
                     <div id="theme-vesper" class="swatch" title="Vesper (Orange)"></div>
                     <div id="theme-nord" class="swatch" title="Nord (Blue)"></div>
                     <div id="theme-evergreen" class="swatch" title="Evergreen (Green)"></div>
@@ -97,6 +98,7 @@
             <div id="mobile-menu" class="md:hidden hidden bg-dark/95 backdrop-blur-md border-t border-accent/20">
                 <div class="px-4 py-3 flex items-center gap-3">
                     <span class="text-sm text-gray-400">Theme:</span>
+                    <div id="m-theme-mocha" class="swatch selected" title="Mocha (Coffee)"></div>
                     <div id="m-theme-vesper" class="swatch" title="Vesper (Orange)"></div>
                     <div id="m-theme-nord" class="swatch" title="Nord (Blue)"></div>
                     <div id="m-theme-evergreen" class="swatch" title="Evergreen (Green)"></div>
@@ -623,6 +625,52 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="group" data-aos="fade-up" data-aos-delay="100">
+                            <div class="interactive-card border border-accent/20 rounded-lg p-6 relative overflow-hidden">
+                                <div class="content">
+                                    <h3 class="text-xl font-semibold text-white mb-3">GameShelf</h3>
+                                    <p class="text-gray-400 mb-4">A web app to manage your game library: accounts, shelf-style browsing, optional RAWG and Steam sync, progress tracking, and mutual games with friends.</p>
+                                    <div class="tech-stack">
+                                        <span class="tech-badge">React</span>
+                                        <span class="tech-badge">Vite</span>
+                                        <span class="tech-badge">Tailwind CSS</span>
+                                        <span class="tech-badge">Express</span>
+                                    </div>
+                                    <div class="flex flex-wrap gap-x-4 gap-y-2 mt-4">
+                                        <a href="https://github.com/s-sannidhi/GameShelf" target="_blank" class="text-accent hover:text-white transition-colors duration-300">
+                                            <i class="fab fa-github mr-2"></i>GitHub →
+                                        </a>
+                                        <a href="https://game-shelf-eight.vercel.app/" target="_blank" class="text-accent hover:text-white transition-colors duration-300">
+                                            <i class="fas fa-external-link-alt mr-2"></i>Live →
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="group" data-aos="fade-up" data-aos-delay="200">
+                            <div class="interactive-card border border-accent/20 rounded-lg p-6 relative overflow-hidden">
+                                <div class="content">
+                                    <h3 class="text-xl font-semibold text-white mb-3">Loft</h3>
+                                    <p class="text-gray-400 mb-4">A shared movie and TV watchlist with a café-inspired UI: collaborative rooms, optional accounts and friends, streaming availability, and public profiles.</p>
+                                    <div class="tech-stack">
+                                        <span class="tech-badge">React</span>
+                                        <span class="tech-badge">Vite</span>
+                                        <span class="tech-badge">Tailwind CSS</span>
+                                        <span class="tech-badge">Express</span>
+                                    </div>
+                                    <div class="flex flex-wrap gap-x-4 gap-y-2 mt-4">
+                                        <a href="https://github.com/s-sannidhi/Loft" target="_blank" class="text-accent hover:text-white transition-colors duration-300">
+                                            <i class="fab fa-github mr-2"></i>GitHub →
+                                        </a>
+                                        <a href="https://loft-media.vercel.app/" target="_blank" class="text-accent hover:text-white transition-colors duration-300">
+                                            <i class="fas fa-external-link-alt mr-2"></i>Live →
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -679,7 +727,7 @@
         });
 
         // Initialize Particles.js
-        const accentHex = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim() || '#ffb86c';
+        const accentHex = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim() || '#c4a574';
         particlesJS('particles-js', {
             particles: {
                 number: { value: 80, density: { enable: true, value_area: 800 } },
@@ -834,6 +882,7 @@
             
             // Theme handling
             const themes = {
+                mocha: { hex: '#c4a574', rgb: '196, 165, 116' },
                 vesper: { hex: '#ffb86c', rgb: '255, 184, 108' },
                 nord: { hex: '#547ABF', rgb: '84, 122, 191' },
                 evergreen: { hex: '#A9C76B', rgb: '169, 199, 107' },
@@ -872,7 +921,8 @@
             }
 
             function applyTheme(key) {
-                const theme = themes[key] || themes.vesper;
+                const theme = themes[key] || themes.mocha;
+                document.documentElement.setAttribute('data-theme', key);
                 document.documentElement.style.setProperty('--accent', theme.hex);
                 document.documentElement.style.setProperty('--accent-rgb', theme.rgb);
                 ensureThemeOverrideStyles();
@@ -900,9 +950,10 @@
                     }
                 } catch (_) {}
 
-                // Update favicon color to match theme
+                // Update favicon color to match theme (rect uses surface from CSS vars)
                 try {
-                    const svg = `<?xml version="1.0" encoding="UTF-8"?>\n<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"><rect width=\"100\" height=\"100\" rx=\"8\" fill=\"#0a0a0a\"/><text x=\"50\" y=\"68\" font-family=\"Consolas, 'Courier New', monospace\" font-weight=\"900\" font-size=\"70\" fill=\"${theme.hex}\" text-anchor=\"middle\">/S</text></svg>`;
+                    const surfaceFill = getComputedStyle(document.documentElement).getPropertyValue('--surface').trim() || '#0a0a0a';
+                    const svg = `<?xml version="1.0" encoding="UTF-8"?>\n<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"><rect width=\"100\" height=\"100\" rx=\"8\" fill=\"${surfaceFill}\"/><text x=\"50\" y=\"68\" font-family=\"Consolas, 'Courier New', monospace\" font-weight=\"900\" font-size=\"70\" fill=\"${theme.hex}\" text-anchor=\"middle\">/S</text></svg>`;
                     const blob = new Blob([svg], { type: 'image/svg+xml' });
                     const url = URL.createObjectURL(blob);
                     let link = document.getElementById('site-favicon');
@@ -926,19 +977,25 @@
             const saved = localStorage.getItem('theme-accent');
             if (saved && themes[saved]) {
                 applyTheme(saved);
+                document.querySelectorAll('.swatch').forEach(s => s.classList.remove('selected'));
                 const savedEls = [
                     document.getElementById('theme-' + saved),
                     document.getElementById('m-theme-' + saved)
                 ];
                 savedEls.forEach(se => se && se.classList.add('selected'));
             } else {
-                normalizeBorders();
+                applyTheme('mocha');
+                document.querySelectorAll('.swatch').forEach(s => s.classList.remove('selected'));
+                ['theme-mocha', 'm-theme-mocha'].forEach(id => {
+                    const el = document.getElementById(id);
+                    if (el) el.classList.add('selected');
+                });
             }
 
             // Bind swatches (desktop + mobile)
             const map = [
-                ['theme-vesper','vesper'], ['theme-nord','nord'], ['theme-evergreen','evergreen'], ['theme-catppuccin','catppuccin'],
-                ['m-theme-vesper','vesper'], ['m-theme-nord','nord'], ['m-theme-evergreen','evergreen'], ['m-theme-catppuccin','catppuccin']
+                ['theme-mocha','mocha'], ['theme-vesper','vesper'], ['theme-nord','nord'], ['theme-evergreen','evergreen'], ['theme-catppuccin','catppuccin'],
+                ['m-theme-mocha','mocha'], ['m-theme-vesper','vesper'], ['m-theme-nord','nord'], ['m-theme-evergreen','evergreen'], ['m-theme-catppuccin','catppuccin']
             ];
             map.forEach(([id, key]) => {
                 const el = document.getElementById(id);
