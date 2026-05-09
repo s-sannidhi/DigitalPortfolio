@@ -1,218 +1,18 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: 'Poppins', sans-serif;
-    line-height: 1.6;
-    color: #333;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    height: 100%;
-}
-
-/* Navbar styles */
-.navbar {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    background-color: rgba(255, 255, 255, 0.95);
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
-}
-
-.nav-content {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 1rem 2rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.logo {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: #2d2d2d;
-}
-
-.nav-links {
-    display: flex;
-    list-style: none;
-    gap: 2rem;
-}
-
-.nav-links a {
-    text-decoration: none;
-    color: #2d2d2d;
-    font-weight: 500;
-    transition: color 0.3s;
-}
-
-.nav-links a:hover {
-    color: #007bff;
-}
-
-/* Hero section */
-.hero {
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-}
-
-.hero-content h1 {
-    font-size: 3rem;
-    margin-bottom: 1rem;
-}
-
-.tagline {
-    font-size: 1.2rem;
-    color: #666;
-    margin-bottom: 2rem;
-}
-
-.social-links {
-    display: flex;
-    gap: 1.5rem;
-    justify-content: center;
-}
-
-.social-links a {
-    color: #2d2d2d;
-    font-size: 1.5rem;
-    transition: color 0.3s;
-}
-
-.social-links a:hover {
-    color: #007bff;
-}
-
-/* Section styles */
-section {
-    padding: 5rem 2rem;
-}
-
-h2 {
-    text-align: center;
-    margin-bottom: 3rem;
-    font-size: 2.5rem;
-}
-
-/* About section */
-.about-content {
-    max-width: 1000px;
-    margin: 0 auto;
-}
-
-.skills-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-    gap: 1rem;
-    margin-top: 2rem;
-}
-
-.skill-item {
-    background-color: #f8f9fa;
-    padding: 0.8rem;
-    border-radius: 5px;
-    text-align: center;
-    font-size: 0.9rem;
-}
-
-/* Projects section */
-.projects-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.project-card {
-    background-color: white;
-    padding: 1.5rem;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.project-card h3 {
-    margin-bottom: 1rem;
-}
-
-.project-links {
-    margin-top: 1rem;
-    display: flex;
-    gap: 1rem;
-}
-
-.project-links a {
-    text-decoration: none;
-    color: #007bff;
-    font-weight: 500;
-}
-
-/* Contact section */
-.contact {
-    background-color: #f8f9fa;
-    text-align: center;
-}
-
-.contact-content {
-    max-width: 600px;
-    margin: 0 auto;
-}
-
-.email-link {
-    display: inline-block;
-    margin-top: 1rem;
-    text-decoration: none;
-    color: #007bff;
-    font-size: 1.2rem;
-}
-
-/* Footer */
-footer {
-    text-align: center;
-    padding: 2rem;
-    color: white;
-}
-
-/* Responsive design */
-@media (max-width: 768px) {
-    .nav-links {
-        display: none;
-    }
-
-    .hero-content h1 {
-        font-size: 2rem;
-    }
-
-    section {
-        padding: 3rem 1rem;
-    }
-} 
-
-/* ====== App custom styles moved from index.html ====== */
-/* Accent color variables (runtime-themable) */
+/* Accent color variables (runtime-themable via js/theme.js) */
 :root {
-    --accent: #c4a574;              /* default: mocha (warm coffee / caramel) */
+    --accent: #c4a574;
     --accent-rgb: 196, 165, 116;
     --surface: #0a0a0a;
     --surface-nav: rgba(10, 10, 10, 0.85);
 }
 
-/* Warmer espresso-toned canvas so mocha accent reads stronger (other themes stay neutral black) */
+/* Warmer canvas for mocha theme */
 html[data-theme="mocha"] {
     --surface: #1e1814;
     --surface-nav: rgba(32, 26, 21, 0.94);
 }
 
-/* Map existing accent utilities to CSS variables */
+/* Map Tailwind accent utilities to CSS variables */
 .text-accent { color: var(--accent) !important; }
 .hover\:text-accent:hover { color: var(--accent) !important; }
 .border-accent { border-color: var(--accent) !important; }
@@ -220,23 +20,21 @@ html[data-theme="mocha"] {
 .bg-accent { background-color: var(--accent) !important; }
 .bg-accent\/10 { background-color: rgba(var(--accent-rgb), 0.1) !important; }
 .border-accent\/20 { border-color: rgba(var(--accent-rgb), 0.2) !important; }
-/* Extra-safe attribute selectors in case of generator variations */
 [class~="border-accent/20"], [class*="border-accent/20"] { border-color: rgba(var(--accent-rgb), 0.2) !important; }
 [class~="bg-accent/10"], [class*="bg-accent/10"] { background-color: rgba(var(--accent-rgb), 0.1) !important; }
 
-/* Utility colors for LeetCode legend dots */
-.bg-easy { background: #22c55e; }
+/* LeetCode legend dot colors */
+.bg-easy   { background: #22c55e; }
 .bg-medium { background: #f59e0b; }
-.bg-hard { background: #ef4444; }
+.bg-hard   { background: #ef4444; }
 
-/* Default swatch colors (desktop + mobile) */
-#theme-mocha, #m-theme-mocha { background: #c4a574; }
-#theme-vesper, #m-theme-vesper { background: #ffb86c; }
-#theme-nord, #m-theme-nord { background: #547ABF; }
-#theme-evergreen, #m-theme-evergreen { background: #A9C76B; }
+/* Theme picker swatches */
+#theme-mocha,      #m-theme-mocha      { background: #c4a574; }
+#theme-vesper,     #m-theme-vesper     { background: #ffb86c; }
+#theme-nord,       #m-theme-nord       { background: #547ABF; }
+#theme-evergreen,  #m-theme-evergreen  { background: #A9C76B; }
 #theme-catppuccin, #m-theme-catppuccin { background: #D7A9E3; }
 
-/* Base behavior */
 html { scroll-behavior: smooth; }
 body { font-family: 'Space Grotesk', sans-serif; }
 
@@ -260,7 +58,6 @@ body > nav.fixed.top-0.w-full {
     width: 100%;
     height: 100%;
     z-index: 0;
-    filter: none;
 }
 
 .content {
@@ -268,7 +65,6 @@ body > nav.fixed.top-0.w-full {
     z-index: 1;
 }
 
-/* Sections */
 section {
     min-height: 100vh;
     padding: 3rem 0;
@@ -294,10 +90,9 @@ section::before {
     z-index: 1;
 }
 
-/* Home section offset that was inline */
 .home-offset { margin-top: -5rem; }
 
-/* Navigation dots */
+/* Side navigation dots */
 .nav-dot {
     position: fixed;
     right: 2rem;
@@ -315,12 +110,13 @@ section::before {
     background: rgba(var(--accent-rgb), 0.2);
     transition: all 0.3s;
 }
-.nav-dot a:hover, .nav-dot a.active {
+.nav-dot a:hover,
+.nav-dot a.active {
     background: var(--accent);
     transform: scale(1.2);
 }
 
-/* Typed cursor */
+/* Typed.js cursor */
 .typed-cursor {
     opacity: 1;
     animation: typedjsBlink 0.7s infinite;
@@ -328,9 +124,8 @@ section::before {
     position: relative;
     top: -2px;
 }
-@keyframes typedjsBlink { 50% { opacity: 0.0; } }
+@keyframes typedjsBlink { 50% { opacity: 0; } }
 
-/* Typing container */
 #typed {
     display: inline-block;
     text-align: center;
@@ -339,117 +134,14 @@ section::before {
     padding: 4px 0;
 }
 
-/* Card hover helpers */
-.group:hover .border-accent20 {
-    box-shadow: 0 0 20px rgba(255, 184, 108, 0.1);
-    transform: translateY(-2px);
-}
-.border-accent20 { transition: all 0.3s ease; }
-
-/* Section headings */
-h2.text-3xl {
-    position: relative;
-    display: inline-block;
-    margin-bottom: 2rem;
-}
-
-/* Nav link underline effect */
-.nav-links a { position: relative; }
-.nav-links a::after {
-    content: '';
-    position: absolute;
-    bottom: -4px;
-    left: 0;
-    width: 0;
-    height: 1px;
-    background-color: var(--accent);
-    transition: width 0.3s ease;
-}
-.nav-links a:hover::after { width: 100%; }
-
-/* Active nav link */
-.nav-active {
-    background-color: rgba(var(--accent-rgb), 0.1);
-    color: var(--accent);
-}
-
-/* Canvas tweak */
-canvas { opacity: 0.8 !important; }
-
-/* Image hover */
-.group:hover img {
-    transform: scale(1.01);
-    box-shadow: 0 0 30px rgba(255, 184, 108, 0.2);
-}
-
-/* Social icons subtle animation */
-.social-links a i { transition: transform 0.3s ease; }
-.social-links a:hover i { transform: translateY(-2px); }
-
-/* Nav hover background sweep */
-nav a { position: relative; opacity: 0.7; }
-nav a:hover { opacity: 1; }
-nav a::before {
-    content: '';
-    position: absolute;
-    width: 0;
-    height: 100%;
-    background-color: rgba(var(--accent-rgb), 0.1);
-    left: 0;
-    top: 0;
-    border-radius: 4px;
-    transition: all 0.3s ease;
-}
-nav a:hover::before { width: 100%; }
-
-/* Reveal animation helpers */
+/* Reveal animation */
 .reveal {
     position: relative;
     transform: translateY(50px);
     opacity: 0;
     transition: all 1s ease;
 }
-.reveal.active { transform: translateY(0px); opacity: 1; }
-
-/* Interactive Project Cards */
-.project-card {
-    transform-style: preserve-3d;
-    transform: perspective(1000px);
-    transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
-}
-.project-card:hover {
-    transform: perspective(1000px) rotateX(10deg) rotateY(10deg) translateZ(20px);
-    box-shadow: 0 25px 50px -12px rgba(var(--accent-rgb), 0.15);
-}
-.project-card::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: 8px;
-    background: radial-gradient(
-        800px circle at var(--mouse-x) var(--mouse-y),
-        rgba(var(--accent-rgb), 0.1),
-        transparent 40%
-    );
-    opacity: 0;
-    transition: opacity 0.5s;
-}
-.project-card:hover::before { opacity: 1; }
-.project-card .content {
-    transform: translateZ(20px);
-    transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
-}
-.project-card:hover .content { transform: translateZ(40px); }
-.project-card .tech-stack {
-    display: flex;
-    gap: 0.5rem;
-    flex-wrap: wrap;
-    margin-top: 1rem;
-    opacity: 0;
-    transform: translateY(10px);
-    transition: all 0.3s ease;
-}
-.project-card:hover .tech-stack { opacity: 1; transform: translateY(0); }
+.reveal.active { transform: translateY(0); opacity: 1; }
 
 /* Tech badge */
 .tech-badge {
@@ -467,15 +159,15 @@ nav a:hover::before { width: 100%; }
     width: 1.4rem;
     height: 1.4rem;
     border-radius: 9999px;
-    border: 1px solid rgba(255,255,255,0.6);
+    border: 1px solid rgba(255, 255, 255, 0.6);
     cursor: pointer;
 }
 .swatch.selected {
-    outline: 2px solid rgba(255,255,255,0.18);
+    outline: 2px solid rgba(255, 255, 255, 0.18);
     box-shadow: 0 0 0 3px var(--accent), 0 0 18px rgba(var(--accent-rgb), 0.45);
 }
 
-/* Interactive Card Styles - Applied to all sections */
+/* Interactive card 3D tilt */
 .interactive-card {
     transform-style: preserve-3d;
     transform: perspective(1500px);
@@ -511,20 +203,47 @@ nav a:hover::before { width: 100%; }
 .interactive-card .tech-stack { opacity: 0; transform: translateY(10px); transition: all 0.3s ease; }
 .interactive-card:hover .tech-stack { opacity: 1; transform: translateY(0); }
 
-/* Force border color on common components that use border-accent/20 */
+/* Section heading underline effect */
+h2.text-3xl {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 2rem;
+}
+
+/* Nav link hover sweep */
+nav a { position: relative; opacity: 0.7; }
+nav a:hover { opacity: 1; }
+nav a::before {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 100%;
+    background-color: rgba(var(--accent-rgb), 0.1);
+    left: 0;
+    top: 0;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+nav a:hover::before { width: 100%; }
+
+/* Image hover */
+.group:hover img {
+    transform: scale(1.01);
+    box-shadow: 0 0 30px rgba(255, 184, 108, 0.2);
+}
+
+/* Force border color on themed elements */
 footer { border-color: rgba(var(--accent-rgb), 0.2) !important; }
 .border-t { border-top-color: rgba(var(--accent-rgb), 0.2) !important; }
 
-/* Mobile adjustments moved from inline */
+canvas { opacity: 0.8 !important; }
+
 @media (max-width: 768px) {
     .nav-dot { display: none !important; }
     section { padding: 2rem 0; min-height: auto; }
     .content-wrapper { padding: 1rem; }
     .interactive-card { cursor: pointer; }
     #particles-js canvas { opacity: 0.4 !important; }
-}
-
-@media (max-width: 768px) {
     nav { padding: 0 1rem; }
     #mobile-menu { transition: all 0.3s ease; }
     #mobile-menu:not(.hidden) { display: block; }
